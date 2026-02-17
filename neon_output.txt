@@ -1,0 +1,47 @@
+﻿[
+  {
+    "id": "quiet-band-26794205",
+    "platform_id": "aws",
+    "region_id": "aws-ap-southeast-1",
+    "name": "CareerForge",
+    "provisioner": "k8s-neonvm",
+    "default_endpoint_settings": {
+      "autoscaling_limit_min_cu": 0.25,
+      "autoscaling_limit_max_cu": 0.25,
+      "suspend_timeout_seconds": 0
+    },
+    "settings": {
+      "allowed_ips": {
+        "ips": [],
+        "protected_branches_only": false
+      },
+      "enable_logical_replication": false,
+      "maintenance_window": {
+        "weekdays": [
+          3
+        ],
+        "start_time": "17:00",
+        "end_time": "18:00"
+      },
+      "block_public_connections": false,
+      "block_vpc_connections": false,
+      "hipaa": false
+    },
+    "pg_version": 17,
+    "proxy_host": "ap-southeast-1.aws.neon.tech",
+    "branch_logical_size_limit": 512,
+    "branch_logical_size_limit_bytes": 536870912,
+    "store_passwords": true,
+    "active_time": 0,
+    "cpu_used_sec": 0,
+    "creation_source": "console",
+    "created_at": "2026-02-13T17:49:47Z",
+    "updated_at": "2026-02-13T17:50:00Z",
+    "synthetic_storage_size": 0,
+    "quota_reset_at": "2026-03-01T00:00:00Z",
+    "owner_id": "org-dry-brook-39448017",
+    "compute_last_active_at": "2026-02-13T17:49:52Z",
+    "org_id": "org-dry-brook-39448017",
+    "history_retention_seconds": 21600
+  }
+]

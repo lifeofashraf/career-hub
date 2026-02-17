@@ -1,0 +1,112 @@
+﻿
+> career-hub@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+node.exe : ΓÜá The "middleware" file 
+convention is deprecated. Please use 
+"proxy" instead. Learn more: https://n
+extjs.org/docs/messages/middleware-to-
+proxy
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\PcWay\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpec 
+   ified: (ΓÜá The "middle...leware-  
+  to-proxy:String) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorId : NativeC 
+   ommandError
+ 
+  Creating an optimized production build ...
+Error: Cannot apply unknown utility 
+class `glass`
+    [2m[at onInvalidCandidate (D:\AG2
+\career-hub\node_modules\tailwindcss\d
+ist\lib.js:21:1511)][0m
+    [2m[at Te (D:\AG2\career-hub\node
+_modules\tailwindcss\dist\lib.js:16:36
+326)][0m
+    [2m[at D:\AG2\career-hub\node_mod
+ules\tailwindcss\dist\lib.js:21:355][
+0m
+    [2m[at Rr (D:\AG2\career-hub\node
+_modules\tailwindcss\dist\lib.js:3:171
+8)][0m
+    [2m[at _ (D:\AG2\career-hub\node_
+modules\tailwindcss\dist\lib.js:3:1377
+)][0m
+    [2m[at $e (D:\AG2\career-hub\node
+_modules\tailwindcss\dist\lib.js:21:17
+2)][0m
+    [2m[at un (D:\AG2\career-hub\node
+_modules\tailwindcss\dist\lib.js:38:29
+4)][0m
+    [2m[at async cn (D:\AG2\career-hu
+b\node_modules\tailwindcss\dist\lib.js
+:38:631)][0m
+    [2m[at async Xr (D:\AG2\career-hu
+b\node_modules\@tailwindcss\node\dist\
+index.js:10:3417)][0m
+    [2m[at async I (D:\AG2\career-hub
+\node_modules\@tailwindcss\postcss\dis
+t\index.js:10:3977)][0m
+
+> Build error occurred
+Error: Turbopack build failed with 1 
+errors:
+./src/app/globals.css
+Error evaluating Node.js code
+CssSyntaxError: tailwindcss: D:\AG2\ca
+reer-hub\src\app\globals.css:1:1: 
+Cannot apply unknown utility class 
+`glass`
+    at Input.error (node_modules/postc
+ss/lib/input.js:135:16) [D:\AG2\career
+-hub\.next\build\chunks\node_modules_f
+e693df6._.js:4651:22]
+    at Root.error (node_modules/postcs
+s/lib/node.js:146:32) [D:\AG2\career-h
+ub\.next\build\chunks\node_modules_fe6
+93df6._.js:928:38]
+    [at Object.Once (D:\AG2\career-hub
+\node_modules\@tailwindcss\postcss\dis
+t\index.js:10:6911)]
+    at async LazyResult.runAsync (node
+_modules/postcss/lib/lazy-result.js:29
+3:11) [D:\AG2\career-hub\.next\build\c
+hunks\node_modules_fe693df6._.js:6206:
+21]
+    at async transform (turbopack:///[
+turbopack-node]/transforms/postcss.ts:
+70:34) [D:\AG2\career-hub\.next\build\
+chunks\[root-of-the-server]__51225daf.
+_.js:146:36]
+    at async run (turbopack:///[turbop
+ack-node]/ipc/evaluate.ts:92:23) [D:\A
+G2\career-hub\.next\build\chunks\[root
+-of-the-server]__974941ed._.js:443:31]
+
+Import trace:
+  Client Component Browser:
+    ./src/app/globals.css [Client 
+Component Browser]
+    ./src/app/layout.tsx [Server 
+Component]
+
+
+    at async transform (turbopack:///[
+turbopack-node]/transforms/postcss.ts:
+70:34) [D:\AG2\career-hub\.next\build\
+chunks\[root-of-the-server]__51225daf.
+_.js:146:36])
+    at async run (turbopack:///[turbop
+ack-node]/ipc/evaluate.ts:92:23) [D:\A
+G2\career-hub\.next\build\chunks\[root
+-of-the-server]__974941ed._.js:443:31]
+)

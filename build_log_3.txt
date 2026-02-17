@@ -1,0 +1,63 @@
+﻿
+> career-hub@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+node.exe : ΓÜá The "middleware" file 
+convention is deprecated. Please use 
+"proxy" instead. Learn more: https://n
+extjs.org/docs/messages/middleware-to-
+proxy
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\PcWay\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : 
+NotSpecified    : (ΓÜá The 
+"middle...leware-to-proxy:S    tring) 
+[], RemoteException
+    + FullyQualifiedErrorId : 
+NativeComman    dError
+ 
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 10.3s
+  Running TypeScript ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/15) ...
+  Generating static pages using 11 workers (3/15) 
+  Generating static pages using 11 workers (7/15) 
+  Generating static pages using 11 workers (11/15) 
+Γ£ô Generating static pages using 11 workers (15/15) in 785.0ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /api/dashboard/stats
+Γö£ ╞Æ /api/footprint
+Γö£ ╞Æ /api/jobs
+Γö£ ╞Æ /api/jobs/[id]
+Γö£ ╞Æ /api/resume-optimizer
+Γö£ ╞Æ /api/resume-optimizer/global
+Γö£ ╞Æ /api/resume-parser
+Γö£ ╞Æ /api/resumes
+Γö£ ╞Æ /api/resumes/[id]
+Γö£ ╞Æ /api/resumes/[id]/latex
+Γö£ Γùï /builder
+Γö£ ╞Æ /builder/[id]
+Γö£ Γùï /dashboard
+Γö£ Γùï /footprint
+Γö£ ╞Æ /sign-in/[[...sign-in]]
+Γö£ ╞Æ /sign-up/[[...sign-up]]
+Γöö Γùï /tracker
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

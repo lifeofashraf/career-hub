@@ -1,0 +1,67 @@
+﻿Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 4.8s
+  Running TypeScript ...
+node.exe : Failed to 
+compile.
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" "C:\U
+sers\PcWay\AppData\Roa
+ming\ ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Failed to    
+ compile.:String)     
+[], RemoteExcepti    
+on
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+
+./src/lib/db.ts:10:9
+Type error: Object 
+literal may only 
+specify known 
+properties, and 
+'datasources' does 
+not exist in type 'Sub
+set<PrismaClientOption
+s, 
+PrismaClientOptions>'.
+
+[0m [90m  8 |[39m  
+   globalForPrisma[33
+m.[39mprisma 
+[33m?[39m[33m?[39m
+ [90m  9 |[39m     
+[36mnew[39m [33mPri
+smaClient[39m({
+[31m[1m>[22m[39m[
+90m 10 |[39m         
+datasources[33m:[39m
+ {
+ [90m    |[39m      
+   
+[31m[1m^[22m[39m
+ [90m 11 |[39m      
+       db[33m:[39m {
+ [90m 12 |[39m      
+           
+url[33m:[39m process
+[33m.[39menv[33m.[
+39m[33mDATABASE_URL[
+39m[33m,[39m
+ [90m 13 |[39m      
+       
+}[33m,[39m[0m
+Next.js build worker 
+exited with code: 1 
+and signal: null

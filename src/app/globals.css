@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ============================================
+   CareerForge — Capslock Inspired Theme
+   ============================================ */
+
+@theme {
+  /* Capslock Base Colors */
+  --color-zinc-50: oklch(98.5% 0 0);
+  --color-zinc-100: oklch(96.7% .001 286.375);
+  --color-zinc-200: oklch(92% .004 286.32);
+  --color-zinc-300: oklch(87.1% .006 286.286);
+  --color-zinc-400: oklch(70.5% .015 286.067);
+  --color-zinc-500: oklch(55.2% .016 285.938);
+  --color-zinc-600: oklch(44.2% .017 285.786);
+  --color-zinc-700: oklch(37% .013 285.805);
+  --color-zinc-800: oklch(27.4% .006 286.033);
+  --color-zinc-900: oklch(21% .006 285.885);
+  --color-zinc-950: oklch(14.1% .005 285.823);
+
+  --color-emerald-50: oklch(97.9% .021 166.113);
+  --color-emerald-200: oklch(90.5% .093 164.15);
+  --color-emerald-400: oklch(76.5% .177 163.223);
+  --color-emerald-500: oklch(69.6% .17 162.48);
+  --color-emerald-900: oklch(37.8% .077 168.94);
+
+  --color-blue-300: oklch(80.9% .105 251.813);
+  --color-blue-500: oklch(62.3% .214 259.815);
+  --color-blue-900: oklch(37.9% .146 265.522);
+
+  --color-amber-500: oklch(76.9% .188 70.08);
+  --color-red-500: oklch(63.7% .237 25.331);
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  /* Semantic Aliases */
+  --color-background: var(--color-zinc-950);
+  --color-foreground: var(--color-zinc-200);
+
+  --color-primary: var(--color-emerald-500);
+  --color-secondary: var(--color-blue-500);
+
+  --color-muted: var(--color-zinc-800);
+  --color-muted-foreground: var(--color-zinc-400);
+
+  --color-border: var(--color-zinc-800);
+  --color-input: var(--color-zinc-900);
+
+  /* Radius — Smooth & Modern */
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Fonts */
+  --font-sans: "Inter", "Outfit", system-ui, -apple-system, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+body {
+  background-color: #020617;
+  /* Very Dark Zinc/Black */
+  color: var(--color-zinc-300);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   Capslock Utilities
+   ============================================ */
+
+/* The Core Glass Effect */
+.glass {
+  background: rgba(9, 9, 11, 0.6);
+  /* Zinc 950 at 60% */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel {
+  background: rgba(9, 9, 11, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Specific Card Style from Capslock */
+.capslock-card {
+  background: rgba(24, 24, 27, 0.4);
+  /* Zinc 900 at 40% */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Very subtle border */
+  border-radius: var(--radius-xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.capslock-card:hover {
+  background: rgba(24, 24, 27, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--color-emerald-500);
+  color: #000;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-emerald-400);
+  transform: translateY(-1px);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Gradients & Utilities */
+.text-gradient {
+  background: linear-gradient(to right, var(--color-emerald-400), var(--color-blue-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-grid-subtle {
+  background-size: 24px 24px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-zinc-800);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-zinc-700);
+}

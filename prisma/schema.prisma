@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id // Clerk user ID
+  email     String   @unique
+  name      String?
+  avatarUrl String?
+
+  resumes   Resume[]
+  jobs      JobApplication[]
+  footprint FootprintCheck?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Resume {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title     String
+  slug      String   @unique
+  template  String   @default("minimal")
+  isPublic  Boolean  @default(false)
+  data      Json     // Full resume JSON (basics, work, education, skills, etc.)
+  metadata  Json     @default("{}") // Theme, layout, page size
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model JobApplication {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  company      String
+  position     String
+  url          String?
+  status       String    @default("wishlist") // wishlist, applied, interviewing, offer, accepted, rejected
+  notes        String?
+  salary       String?
+  contactName  String?
+  contactEmail String?
+  appliedAt    DateTime?
+  order        Int       @default(0) // For ordering within columns
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([userId, status])
+}
+
+model FootprintCheck {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  completedItems Json      @default("[]") // Array of completed checklist item IDs
+  score          Int       @default(0)    // Calculated 0-100
+  lastCheckedAt  DateTime?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}

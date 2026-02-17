@@ -1,0 +1,58 @@
+﻿
+> career-hub@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+node.exe : ΓÜá The "middleware" file 
+convention is deprecated. Please use 
+"proxy" instead. Learn more: https://n
+extjs.org/docs/messages/middleware-to-
+proxy
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\PcWay\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpec 
+   ified: (ΓÜá The "middle...leware-  
+  to-proxy:String) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorId : NativeC 
+   ommandError
+ 
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 8.2s
+  Running TypeScript ...
+Failed to compile.
+
+.next/dev/types/validator.ts:125:39
+Type error: File 'D:/AG2/career-hub/sr
+c/app/stitch-demo/page.tsx' is not a 
+module.
+
+[0m [90m 123 |[39m {
+ [90m 124 |[39m   type __IsExpected
+[33m<[39m[33mSpecific[39m 
+[36mextends[39m [33mAppPageConfig[
+39m[33m<[39m[32m"/stitch-demo"[39m
+[33m>>[39m [33m=[39m 
+[33mSpecific[39m
+[31m[1m>[22m[39m[90m 125 |[39m  
+ [36mconst[39m handler [33m=[39m 
+{} [36mas[39m [36mtypeof[39m [36m
+import[39m([32m"../../../src/app/sti
+tch-demo/page.js"[39m)
+ [90m     |[39m                     
+                  [31m[1m^[22m[39m
+ [90m 126 |[39m   type __Check 
+[33m=[39m __IsExpected[33m<[39m[3
+6mtypeof[39m handler[33m>[39m
+ [90m 127 |[39m   [90m// 
+@ts-ignore[39m
+ [90m 128 |[39m   type __Unused 
+[33m=[39m __Check[0m
+Next.js build worker exited with 
+code: 1 and signal: null
