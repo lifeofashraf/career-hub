@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Caps Lock Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "secondary": "#ffffff",
+                        "divider": "#000000",
+                        "accent-gray": "#f0f0f0",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "none": "0px",
+                        "sm": "0px",
+                        "DEFAULT": "0px",
+                        "md": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "2xl": "0px",
+                        "full": "0px",
+                    },
+                    borderWidth: {
+                        "1": "1px",
+                        "2": "2px",
+                        "3": "3px",
+                        "4": "4px",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        input, textarea, select {
+            font-family: 'Space Mono', monospace;
+        }input:focus, textarea:focus {
+            box-shadow: 4px 4px 0 0 #000 !important;
+            transform: translate(-2px, -2px);
+        }
+        .btn-brutalist {
+            transition: all 0.1s ease;
+        }
+        .btn-brutalist:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0 0 #000;
+        }
+        .heavy-divider {
+            border-bottom: 2px solid #000;
+        }
+        .panel-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-primary h-screen flex flex-col overflow-hidden antialiased">
+<header class="flex items-center justify-between whitespace-nowrap border-b-4 border-black bg-white px-6 py-4 shrink-0 z-20">
+<div class="flex items-center gap-4 text-black">
+<div class="size-10 bg-black text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div>
+<h2 class="text-black text-2xl font-black uppercase tracking-tighter leading-none">Caps Lock</h2>
+<span class="text-xs font-mono uppercase tracking-widest text-neutral-500">Resume Supply Co.</span>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<button class="btn-brutalist flex min-w-[84px] cursor-pointer items-center justify-center h-10 px-6 border-2 border-black bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-neutral-100 transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<span class="truncate font-mono">Save Draft</span>
+</button>
+<div class="border-2 border-black size-10 bg-neutral-100" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQQ4XlAUVewaoMdvC97Lovw-dvgEt5EmYeUeQqeyPn3KjHptLuht-w5t7oqwvwxm0miY3V-DxnpmnawF7mpq-GOQViUOV9vrkIIqppRtUzSpdhWt8VSbsu8DNKpPkLV6Syk_jPVt3Iz51hxU5wcsBrJqUQqcvKY5xsJJGeidTRjtK73KLatmLhwDKKgCkoTLPFW4Cgnnqx7czB_s3SD3EykHVrS8ACGXDAajNln9W6NgWhNSgEB-moVTX_sJhQFcfdMMelNafxyBE"); background-size: cover;'></div>
+</div>
+</header>
+<div class="flex items-center justify-between border-b-2 border-black bg-accent-gray px-6 py-3 shrink-0 z-10">
+<div class="flex items-center gap-4">
+<div class="flex items-center border-r-2 border-black pr-4 mr-2 gap-2">
+<button class="size-10 flex items-center justify-center border-2 border-transparent hover:border-black hover:bg-white transition-all text-black" title="Font Family">
+<span class="material-symbols-outlined text-[20px]">text_format</span>
+</button>
+<button class="size-10 flex items-center justify-center border-2 border-transparent hover:border-black hover:bg-white transition-all text-black" title="Colors">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</button>
+</div>
+<button class="size-10 flex items-center justify-center border-2 border-transparent hover:border-black hover:bg-white transition-all text-black font-bold font-serif text-xl" title="Bold">
+                B
+            </button>
+<button class="size-10 flex items-center justify-center border-2 border-transparent hover:border-black hover:bg-white transition-all text-black italic font-serif text-xl" title="Italic">
+                I
+            </button>
+<button class="size-10 flex items-center justify-center border-2 border-transparent hover:border-black hover:bg-white transition-all text-black" title="List">
+<span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+</button>
+</div>
+<button class="btn-brutalist flex cursor-pointer items-center justify-center h-10 bg-black text-white gap-3 text-sm font-bold px-6 uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(100,100,100,1)] hover:shadow-[2px_2px_0px_0px_rgba(100,100,100,1)] hover:translate-x-[2px] hover:translate-y-[2px]">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="truncate font-mono">Export PDF</span>
+</button>
+</div>
+<div class="flex flex-1 overflow-hidden">
+<div class="w-full md:w-[45%] lg:w-[40%] xl:w-[35%] bg-white border-r-4 border-black overflow-y-auto flex flex-col">
+<div class="p-8 pb-20 space-y-10">
+<div class="relative">
+<div class="absolute -left-8 top-1 w-2 h-full bg-black"></div>
+<h3 class="text-black text-2xl font-black uppercase tracking-tight mb-6 flex items-center gap-3 border-b-2 border-black pb-2">
+<span class="bg-black text-white px-2 py-1 font-mono text-sm">01</span>
+                        Personal Info
+                    </h3>
+<div class="grid grid-cols-1 gap-6">
+<label class="flex flex-col group">
+<span class="text-xs font-bold uppercase tracking-widest text-black mb-2 font-mono">Full Name</span>
+<input class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-400" placeholder="e.g. Alex Morgan" value="Alex Morgan"/>
+</label>
+<label class="flex flex-col group">
+<span class="text-xs font-bold uppercase tracking-widest text-black mb-2 font-mono">Job Title</span>
+<input class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-400" placeholder="e.g. Senior Product Designer" value="Senior Product Designer"/>
+</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="flex flex-col group">
+<span class="text-xs font-bold uppercase tracking-widest text-black mb-2 font-mono">Email</span>
+<input class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-400" placeholder="alex@example.com" value="alex@example.com"/>
+</label>
+<label class="flex flex-col group">
+<span class="text-xs font-bold uppercase tracking-widest text-black mb-2 font-mono">Phone</span>
+<input class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-400" placeholder="+1 234 567 890" value="+1 (555) 123-4567"/>
+</label>
+</div>
+<label class="flex flex-col group">
+<span class="text-xs font-bold uppercase tracking-widest text-black mb-2 font-mono">Summary</span>
+<textarea class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all resize-y min-h-[120px] placeholder:text-neutral-400 font-mono" placeholder="Brief professional summary...">Passionate product designer with 5+ years of experience building accessible web applications and design systems.</textarea>
+</label>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-8 top-1 w-2 h-full bg-black"></div>
+<div class="flex items-center justify-between mb-6 border-b-2 border-black pb-2">
+<h3 class="text-black text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="bg-black text-white px-2 py-1 font-mono text-sm">02</span>
+                            Experience
+                        </h3>
+<button class="btn-brutalist text-xs font-bold uppercase tracking-wider text-white bg-black px-4 py-2 hover:bg-neutral-800 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span> Add
+                        </button>
+</div>
+<div class="space-y-6">
+<div class="bg-white border-2 border-black p-5 relative shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div class="absolute top-0 right-0 flex border-l-2 border-b-2 border-black bg-white z-10">
+<button class="p-2 hover:bg-black hover:text-white transition-colors border-r-2 border-black"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button>
+<button class="p-2 hover:bg-red-600 hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="grid grid-cols-1 gap-4 mt-2">
+<div class="grid grid-cols-2 gap-4">
+<input class="font-bold text-sm bg-accent-gray border-2 border-transparent focus:border-black px-3 py-2 w-full placeholder-neutral-500 font-mono" placeholder="Position" value="Senior UX Designer"/>
+<input class="text-sm bg-accent-gray border-2 border-transparent focus:border-black px-3 py-2 w-full placeholder-neutral-500 font-mono" placeholder="Company" value="TechFlow Inc."/>
+</div>
+<div class="flex gap-4">
+<input class="text-xs bg-white border-b-2 border-neutral-200 focus:border-black px-0 py-1 w-full text-black font-mono" placeholder="Start Date" value="Jan 2021"/>
+<input class="text-xs bg-white border-b-2 border-neutral-200 focus:border-black px-0 py-1 w-full text-black font-mono" placeholder="End Date" value="Present"/>
+</div>
+<textarea class="w-full text-sm bg-white border-2 border-neutral-200 focus:border-black p-3 text-black resize-none font-mono" rows="4">• Led the redesign of the core product dashboard.
+• Mentored junior designers and established design system guidelines.</textarea>
+</div>
+</div>
+<div class="bg-white border-2 border-black p-4 flex items-center justify-between cursor-pointer hover:bg-accent-gray transition-colors">
+<div>
+<p class="font-bold text-sm font-mono uppercase">Product Designer</p>
+<p class="text-xs text-neutral-500 font-mono mt-1">Creative Agency Ltd. • 2018 - 2020</p>
+</div>
+<span class="material-symbols-outlined text-black">expand_more</span>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-8 top-1 w-2 h-full bg-black"></div>
+<div class="flex items-center justify-between mb-6 border-b-2 border-black pb-2">
+<h3 class="text-black text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="bg-black text-white px-2 py-1 font-mono text-sm">03</span>
+                            Education
+                        </h3>
+<button class="btn-brutalist text-xs font-bold uppercase tracking-wider text-white bg-black px-4 py-2 hover:bg-neutral-800 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span> Add
+                        </button>
+</div>
+<div class="bg-white border-2 border-black p-4 flex items-center justify-between cursor-pointer hover:bg-accent-gray transition-colors">
+<div>
+<p class="font-bold text-sm font-mono uppercase">Bachelor of Fine Arts</p>
+<p class="text-xs text-neutral-500 font-mono mt-1">University of Design • 2014 - 2018</p>
+</div>
+<span class="material-symbols-outlined text-black">expand_more</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-8 top-1 w-2 h-full bg-black"></div>
+<div class="flex items-center justify-between mb-6 border-b-2 border-black pb-2">
+<h3 class="text-black text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="bg-black text-white px-2 py-1 font-mono text-sm">04</span>
+                            Skills
+                        </h3>
+</div>
+<div class="flex flex-wrap gap-3 mb-4">
+<div class="bg-black text-white px-4 py-2 text-xs font-mono uppercase tracking-wide flex items-center gap-2 group cursor-pointer hover:bg-red-600 transition-colors border-2 border-black">
+                            Figma <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="bg-black text-white px-4 py-2 text-xs font-mono uppercase tracking-wide flex items-center gap-2 group cursor-pointer hover:bg-red-600 transition-colors border-2 border-black">
+                            HTML/CSS <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="bg-black text-white px-4 py-2 text-xs font-mono uppercase tracking-wide flex items-center gap-2 group cursor-pointer hover:bg-red-600 transition-colors border-2 border-black">
+                            React <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="bg-black text-white px-4 py-2 text-xs font-mono uppercase tracking-wide flex items-center gap-2 group cursor-pointer hover:bg-red-600 transition-colors border-2 border-black">
+                            Prototyping <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+</div>
+<input class="w-full border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-400 font-mono" placeholder="Add a skill and press Enter..."/>
+</div>
+</div>
+</div>
+<div class="hidden md:flex flex-1 bg-neutral-200 justify-center overflow-y-auto relative p-12 panel-grid">
+<div class="bg-white w-[210mm] min-h-[297mm] h-fit border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,0.8)] relative z-10 flex flex-col p-[20mm]">
+<div class="border-b-4 border-black pb-8 mb-8">
+<h1 class="text-5xl font-black text-black mb-2 uppercase tracking-tighter">Alex Morgan</h1>
+<h2 class="text-xl font-mono uppercase tracking-widest text-neutral-600 mb-6 bg-neutral-100 inline-block px-2 py-1">Senior Product Designer</h2>
+<div class="flex flex-wrap gap-6 text-sm text-black font-mono">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                            alex@example.com
+                        </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                            +1 (555) 123-4567
+                        </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            San Francisco, CA
+                        </div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-10 h-full">
+<div class="col-span-8 space-y-10">
+<section>
+<h3 class="text-lg font-black uppercase tracking-widest text-black mb-4 border-b-2 border-black pb-2">Profile</h3>
+<p class="text-sm text-neutral-800 leading-relaxed font-serif">
+                                Passionate product designer with 5+ years of experience building accessible web applications and design systems. Dedicated to creating intuitive user experiences that bridge the gap between complex technology and human needs.
+                            </p>
+</section>
+<section>
+<h3 class="text-lg font-black uppercase tracking-widest text-black mb-6 border-b-2 border-black pb-2">Experience</h3>
+<div class="mb-8 relative pl-4 border-l-2 border-black">
+<div class="flex justify-between items-baseline mb-2">
+<h4 class="font-bold text-black text-base uppercase">Senior UX Designer</h4>
+<span class="text-xs font-mono font-bold text-black bg-neutral-100 px-2 py-1">Jan 2021 - Present</span>
+</div>
+<div class="text-sm font-bold text-neutral-600 mb-3 font-mono">TechFlow Inc.</div>
+<ul class="list-disc list-outside ml-4 text-sm text-neutral-800 space-y-2 font-serif">
+<li>Led the redesign of the core product dashboard resulting in a 20% increase in user engagement.</li>
+<li>Mentored junior designers and established design system guidelines used across 4 different product lines.</li>
+<li>Collaborated with engineering to implement a new component library.</li>
+</ul>
+</div>
+<div class="mb-6 relative pl-4 border-l-2 border-black">
+<div class="flex justify-between items-baseline mb-2">
+<h4 class="font-bold text-black text-base uppercase">Product Designer</h4>
+<span class="text-xs font-mono font-bold text-black bg-neutral-100 px-2 py-1">2018 - 2020</span>
+</div>
+<div class="text-sm font-bold text-neutral-600 mb-3 font-mono">Creative Agency Ltd.</div>
+<ul class="list-disc list-outside ml-4 text-sm text-neutral-800 space-y-2 font-serif">
+<li>Designed responsive websites for over 15 clients in e-commerce and fintech sectors.</li>
+<li>Conducted user research and usability testing sessions.</li>
+</ul>
+</div>
+</section>
+</div>
+<div class="col-span-4 space-y-10">
+<section>
+<h3 class="text-sm font-black uppercase tracking-widest text-black mb-4 border-b-2 border-black pb-2">Education</h3>
+<div class="mb-4">
+<h4 class="font-bold text-black text-sm uppercase leading-tight">Bachelor of Fine Arts</h4>
+<div class="text-xs text-neutral-600 mt-1 font-mono">University of Design</div>
+<div class="text-xs text-neutral-400 mt-1 font-mono">2014 - 2018</div>
+</div>
+</section>
+<section>
+<h3 class="text-sm font-black uppercase tracking-widest text-black mb-4 border-b-2 border-black pb-2">Skills</h3>
+<div class="flex flex-col gap-2">
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">Figma</span>
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">HTML/CSS</span>
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">React</span>
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">Prototyping</span>
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">User Research</span>
+<span class="bg-black text-white text-xs font-mono uppercase tracking-wide px-3 py-2">Wireframing</span>
+</div>
+</section>
+<section>
+<h3 class="text-sm font-black uppercase tracking-widest text-black mb-4 border-b-2 border-black pb-2">Languages</h3>
+<div class="space-y-3 border-l-2 border-black pl-3">
+<div class="flex flex-col">
+<span class="text-black font-bold text-sm uppercase">English</span>
+<span class="text-neutral-500 text-xs font-mono">Native</span>
+</div>
+<div class="flex flex-col">
+<span class="text-black font-bold text-sm uppercase">Spanish</span>
+<span class="text-neutral-500 text-xs font-mono">Intermediate</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+<button class="md:hidden fixed bottom-6 right-6 size-16 bg-black text-white border-2 border-white shadow-xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+
+</body></html>

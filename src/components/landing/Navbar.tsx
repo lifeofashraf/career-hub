@@ -33,11 +33,11 @@ export default function Navbar() {
         >
             <div className="w-full max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2.5 group">
-                    <div className="bg-primary p-2 rounded-xl border-2 border-primary/80 shadow-[2px_2px_0_theme(colors.primary/0.5)] group-hover:shadow-[3px_3px_0_theme(colors.primary/0.5)] transition-all">
-                        <Sparkles className="w-4 h-4 text-primary-foreground" />
+                <Link href="/" className="flex items-center gap-2 group">
+                    <div className="bg-black p-1.5 border-2 border-black group-hover:bg-white group-hover:text-black transition-colors">
+                        <Sparkles className="w-4 h-4 text-white group-hover:text-black" />
                     </div>
-                    <span className="text-lg font-extrabold tracking-tight">
+                    <span className="text-lg font-black uppercase tracking-tight text-black">
                         CareerForge
                     </span>
                 </Link>

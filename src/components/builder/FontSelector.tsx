@@ -34,18 +34,19 @@ export default function FontSelector({ selected, onSelect }: FontSelectorProps) 
                         key={font.id}
                         onClick={() => onSelect(font.id)}
                         className={cn(
-                            "glass-card relative flex items-center justify-between px-4 py-3 text-left transition-all border border-transparent",
+                            "relative flex items-center justify-between px-4 py-3 text-left transition-all border-2 border-black brutal-shadow-sm hover:brutal-shadow-hover active:brutal-shadow-active",
                             selected === font.id
-                                ? "bg-primary/20 border-primary/50 text-white shadow-[0_0_15px_rgba(139,92,246,0.3)]"
-                                : "hover:bg-white/5 hover:border-white/10 text-muted-foreground hover:text-foreground"
+                                ? "bg-black text-white"
+                                : "bg-white text-black hover:bg-neutral-50"
                         )}
+                        style={{ fontFamily: font.family }}
                     >
-                        <span className="text-sm" style={{ fontFamily: font.family }}>
+                        <span className="text-sm font-bold">
                             {font.name}
                         </span>
                         {selected === font.id && (
-                            <div className="bg-primary rounded-full p-0.5 shadow-lg shadow-primary/50">
-                                <Check className="w-2.5 h-2.5 text-white" />
+                            <div className="bg-white border text-black rounded-full p-0.5 pointer-events-none">
+                                <Check className="w-2.5 h-2.5" />
                             </div>
                         )}
                     </button>

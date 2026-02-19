@@ -20,7 +20,7 @@ export default function RevealOnScroll({
     const isInView = useInView(ref, { once: false, amount: 0.3 }); // Trigger every time, 30% visibility
 
     return (
-        <div ref={ref} style={{ width, position: "relative", overflow: "hidden" }} className={className}>
+        <div ref={ref} style={{ width, position: "relative" }} className={className}>
             <motion.div
                 variants={{
                     hidden: { opacity: 0, y: 75 },

@@ -224,11 +224,25 @@ export default function FootprintPage() {
                 const res = await fetch("/api/footprint");
                 if (res.ok) {
                     const data = await res.json();
-                    // data is array of { checkId, isChecked, category... }
+
+                    // Database returns { completedItems: ["category:id", ...] }
+                    const completedList = (data && data.completedItems) ? data.completedItems : [];
                     const checkedIds = new Set<string>();
-                    data.forEach((item: any) => {
-                        if (item.isChecked) checkedIds.add(item.checkId);
-                    });
+
+                    if (Array.isArray(completedList)) {
+                        completedList.forEach((idString: string) => {
+                            // format is "category:checkId"
+                            const parts = idString.split(":");
+                            // If parts length is 2, it's category:id. We store just the ID in local state.
+                            if (parts.length === 2) {
+                                checkedIds.add(parts[1]);
+                            } else {
+                                // Fallback if format is just ID
+                                checkedIds.add(idString);
+                            }
+                        });
+                    }
+
                     setCheckedItems(checkedIds);
                 }
             } catch (error) {

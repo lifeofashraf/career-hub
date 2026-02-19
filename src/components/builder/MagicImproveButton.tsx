@@ -19,7 +19,10 @@ export default function MagicImproveButton() {
                 body: JSON.stringify({ data }),
             });
 
-            if (!res.ok) throw new Error("Optimization failed");
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.error || "Optimization failed");
+            }
 
             const result = await res.json();
 
@@ -49,19 +52,16 @@ export default function MagicImproveButton() {
             onClick={handleOptimize}
             disabled={isLoading}
             className={cn(
-                "glass-btn-primary group relative overflow-hidden px-4 py-2 transition-all hover:scale-105 active:scale-95 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed",
-                isLoading && "animate-pulse"
+                "btn-brutal w-full flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed",
+                isLoading && "opacity-80"
             )}
         >
-            <div className="absolute inset-0 bg-white/20 opacity-0 transition-opacity group-hover:opacity-100" />
-            <div className="relative flex items-center gap-2 font-bold text-xs tracking-wide uppercase text-white">
-                {isLoading ? (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                    <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse-soft" />
-                )}
-                {isLoading ? "Optimizing..." : "Magic Improve"}
-            </div>
+            {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+                <Sparkles className="w-4 h-4" />
+            )}
+            {isLoading ? "Optimizing..." : <><span className="hidden sm:inline">Magic Improve</span><span className="inline sm:hidden">Magic</span></>}
         </button>
     );
 }

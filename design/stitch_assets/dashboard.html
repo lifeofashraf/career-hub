@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Caps Lock Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "accent": "#ffffff",
+                        "highlight": "#f0f0f0",
+                        "paper": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                    },
+                    boxShadow: {
+                        'hard': '4px 4px 0px 0px #000000',
+                        'hard-sm': '2px 2px 0px 0px #000000',
+                        'hard-hover': '6px 6px 0px 0px #000000',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .border-hard {
+                @apply border-2 border-black;
+            }
+            .btn-brutal {
+                @apply bg-white border-2 border-black px-4 py-2 font-bold uppercase tracking-wider text-black transition-all hover:-translate-y-1 hover:shadow-hard active:translate-y-0 active:shadow-none;
+            }
+            .btn-primary-brutal {
+                @apply bg-black border-2 border-black text-white hover:bg-white hover:text-black;
+            }
+            .card-brutal {
+                @apply bg-white border-2 border-black transition-all hover:shadow-hard;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-black font-sans antialiased min-h-screen">
+<div class="flex h-screen w-full overflow-hidden bg-[#f4f4f4]">
+<div class="hidden w-72 flex-col justify-between border-r-2 border-black bg-white md:flex">
+<div class="flex flex-col gap-8 p-6">
+<div class="flex items-center gap-3 pb-6 border-b-2 border-black">
+<div class="flex h-12 w-12 items-center justify-center border-2 border-black bg-black text-white shadow-hard-sm">
+<span class="material-symbols-outlined text-2xl font-bold">description</span>
+</div>
+<div>
+<h1 class="text-xl font-black uppercase tracking-tighter leading-none text-black">RESUME<br/>BUILDER</h1>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="group flex items-center gap-3 border-2 border-transparent px-3 py-3 font-bold uppercase tracking-wide text-black hover:border-black hover:bg-gray-50 hover:shadow-hard-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[24px] fill-1">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="group flex items-center gap-3 border-2 border-black bg-black px-3 py-3 font-bold uppercase tracking-wide text-white shadow-hard-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[24px]">folder_open</span>
+<span class="text-sm">My Resumes</span>
+</a>
+<a class="group flex items-center gap-3 border-2 border-transparent px-3 py-3 font-bold uppercase tracking-wide text-gray-500 hover:border-black hover:text-black hover:bg-gray-50 hover:shadow-hard-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[24px]">work</span>
+<span class="text-sm">Applications</span>
+</a>
+<a class="group flex items-center gap-3 border-2 border-transparent px-3 py-3 font-bold uppercase tracking-wide text-gray-500 hover:border-black hover:text-black hover:bg-gray-50 hover:shadow-hard-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</nav>
+</div>
+<div class="border-t-2 border-black p-6 bg-gray-50">
+<a class="flex items-center gap-3 border-2 border-black bg-white p-3 hover:shadow-hard-sm transition-all" href="#">
+<div class="h-10 w-10 overflow-hidden border-2 border-black bg-gray-200">
+<img alt="User Avatar" class="h-full w-full object-cover grayscale contrast-125" data-alt="Portrait of a smiling user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSMElBkUD2tGCX1Qnn8PGq5neUFah4MnDBdZbFrWW9LjkhHmE14YrLC_GwAVTcH7k5aF-kVJcXqMMD6fOkKzJQbb2yAG_ZvcKro-hsqYu2z6CC2TESlhAC402BGSHRJdVDzps6vF4jV-OMdy0FWUGDq5q9Xf2HCE7eCKHS9KWQSsmudt7zWEmDdQvSNE4fKjhZb2J4qaTqYUxYzgsTJXFl8Q7AoW3qcVgC7e7MWxkw4-nabGiPxPtSLN3DOpX2BaD9Sf5w7OjExfw"/>
+</div>
+<div class="flex flex-1 flex-col overflow-hidden">
+<span class="truncate text-sm font-bold uppercase text-black">Alex Morgan</span>
+<span class="truncate text-xs font-mono text-gray-600">PRO MEMBER</span>
+</div>
+</a>
+</div>
+</div>
+<main class="flex flex-1 flex-col overflow-y-auto">
+<header class="sticky top-0 z-20 flex items-center justify-between border-b-2 border-black bg-white px-8 py-6">
+<div class="flex items-center gap-4">
+<button class="md:hidden border-2 border-black p-1 hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-3xl font-black uppercase tracking-tighter text-black">My Resumes</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden w-80 md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-black font-bold">search</span>
+<input class="w-full border-2 border-black bg-white py-2 pl-10 pr-4 text-sm font-mono text-black placeholder-gray-500 focus:border-black focus:ring-0 focus:shadow-hard-sm transition-all" placeholder="SEARCH ARCHIVES..." type="text"/>
+</div>
+<button class="flex items-center gap-2 btn-brutal btn-primary-brutal">
+<span class="material-symbols-outlined text-[20px] font-bold">add</span>
+<span>CREATE NEW</span>
+</button>
+</div>
+</header>
+<div class="flex-1 p-8 bg-[#f4f4f4]">
+<div class="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+<div class="flex flex-col gap-2 border-2 border-black bg-white p-6 shadow-hard">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold uppercase text-gray-500">Total Documents</span>
+<span class="material-symbols-outlined text-black">description</span>
+</div>
+<p class="text-4xl font-black text-black">12</p>
+</div>
+<div class="flex flex-col gap-2 border-2 border-black bg-black p-6 shadow-hard text-white">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold uppercase text-gray-400">Completed</span>
+<span class="material-symbols-outlined text-white">check_circle</span>
+</div>
+<p class="text-4xl font-black text-white">08</p>
+</div>
+<div class="flex flex-col gap-2 border-2 border-black bg-white p-6 shadow-hard">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold uppercase text-gray-500">Drafts</span>
+<span class="material-symbols-outlined text-black">edit_document</span>
+</div>
+<p class="text-4xl font-black text-black">04</p>
+</div>
+</div>
+<div class="mb-6 flex items-end justify-between border-b-2 border-black pb-4">
+<h3 class="text-xl font-black uppercase tracking-tight text-black">Recent Documents</h3>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center border-2 border-black bg-black text-white shadow-hard-sm">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center border-2 border-black bg-white text-black hover:bg-gray-100 hover:shadow-hard-sm transition-all">
+<span class="material-symbols-outlined text-[20px]">list</span>
+</button>
+<div class="ml-2 relative">
+<select class="appearance-none border-2 border-black bg-white py-2 pl-3 pr-8 text-sm font-bold uppercase tracking-wide text-black focus:ring-0 focus:shadow-hard-sm cursor-pointer">
+<option>Last Modified</option>
+<option>Name (A-Z)</option>
+<option>Date Created</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-black">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-12">
+<button class="group relative flex flex-col items-center justify-center border-2 border-black bg-white p-6 transition-all hover:-translate-y-2 hover:shadow-hard min-h-[400px]">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlN2U3ZTciLz48L3N2Zz4=')] opacity-20"></div>
+<div class="z-10 mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-black bg-black text-white group-hover:bg-white group-hover:text-black transition-colors">
+<span class="material-symbols-outlined text-6xl">add</span>
+</div>
+<span class="z-10 text-xl font-black uppercase tracking-wider text-black decoration-4 underline-offset-4 group-hover:underline">Create New</span>
+<span class="z-10 mt-2 font-mono text-xs text-gray-500">START FROM SCRATCH</span>
+</button>
+<div class="card-brutal group relative flex flex-col overflow-hidden bg-white">
+<div class="relative aspect-[3/4] w-full border-b-2 border-black bg-gray-100 p-4">
+<div class="h-full w-full border-2 border-black overflow-hidden bg-white">
+<img alt="Clean minimal resume document preview" class="h-full w-full object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Minimalist resume layout preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6nbgEJCQ0a3Os5lUiXxqZANUDe8WPmMhQ5lYMCAVKwrjaBZuwT_k46fx9LglsNHWzuXgZ7Xm3RhGtWoPnZAsB0QC4a-nzQ9m5FCIehq_1uRPtRJt4T8OQy_VTRa0HSWrIrVKjWCwow9-kZtgIAE4sO9SPFzGtp0pYHpnQ-yfIZ_bOrWTABNeD-WhrPKtYzoyMGiQ1nSNItOe2HozJC-jMRs5IM2IHUvzwEbJ7CqSs6uiVagzIbqmx2berBQq1o1Ic4Yt_FWQAULo"/>
+</div>
+<div class="absolute inset-0 z-10 flex items-center justify-center gap-3 opacity-0 transition-opacity bg-black/80 group-hover:opacity-100">
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[24px]">edit</span>
+</button>
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[24px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5 bg-white">
+<div class="mb-3 flex items-center justify-between">
+<span class="inline-flex items-center border border-black bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Completed</span>
+<button class="text-black hover:bg-gray-100 p-1 border border-transparent hover:border-black transition-all">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<h4 class="mb-1 text-lg font-bold uppercase leading-tight text-black group-hover:underline decoration-2 underline-offset-2">Software Engineer 2024</h4>
+<p class="font-mono text-xs text-gray-500 mt-auto pt-2 border-t border-dashed border-gray-300">EDITED 2 DAYS AGO</p>
+</div>
+</div>
+<div class="card-brutal group relative flex flex-col overflow-hidden bg-white">
+<div class="relative aspect-[3/4] w-full border-b-2 border-black bg-gray-100 p-4">
+<div class="h-full w-full border-2 border-black overflow-hidden bg-white">
+<img alt="Creative portfolio resume layout" class="h-full w-full object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Creative colorful resume layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6FQVezjof1B-kN-5HeeErWoZRgnkE3EiincK96ELmtpXK-hthsLwsYojWmuYto694Iqx2i1VFI869vmKFwE7rqh0TPdw9s17YCslFHNJ5ExCyKqOnNHl6NZGVQXgDxeTYLNMohxRJ7FrgG8UvGfZiZUseyJONx1U3vp6WNztpU7NWoX6zpKIQZMnt3hCBbeWypiPjAnvZHaBWNUghAfRX2IhWnkRUOwp4ZuJaeF-I4miv1n5Qo2tW9szsu_zS6Siu0cP_fvo9w3U"/>
+</div>
+<div class="absolute inset-0 z-10 flex items-center justify-center gap-3 opacity-0 transition-opacity bg-black/80 group-hover:opacity-100">
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[24px]">edit</span>
+</button>
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[24px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5 bg-white">
+<div class="mb-3 flex items-center justify-between">
+<span class="inline-flex items-center border border-black bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-black">Draft</span>
+<button class="text-black hover:bg-gray-100 p-1 border border-transparent hover:border-black transition-all">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<h4 class="mb-1 text-lg font-bold uppercase leading-tight text-black group-hover:underline decoration-2 underline-offset-2">Creative Portfolio</h4>
+<p class="font-mono text-xs text-gray-500 mt-auto pt-2 border-t border-dashed border-gray-300">EDITED 1 WEEK AGO</p>
+</div>
+</div>
+<div class="card-brutal group relative flex flex-col overflow-hidden bg-white">
+<div class="relative aspect-[3/4] w-full border-b-2 border-black bg-gray-100 p-4">
+<div class="h-full w-full border-2 border-black bg-white flex items-center justify-center bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:16px_16px]">
+<span class="material-symbols-outlined text-6xl text-black">description</span>
+</div>
+<div class="absolute inset-0 z-10 flex items-center justify-center gap-3 opacity-0 transition-opacity bg-black/80 group-hover:opacity-100">
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[24px]">edit</span>
+</button>
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[24px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5 bg-white">
+<div class="mb-3 flex items-center justify-between">
+<span class="inline-flex items-center border border-black bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-black">Draft</span>
+<button class="text-black hover:bg-gray-100 p-1 border border-transparent hover:border-black transition-all">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<h4 class="mb-1 text-lg font-bold uppercase leading-tight text-black group-hover:underline decoration-2 underline-offset-2">Generic CV</h4>
+<p class="font-mono text-xs text-gray-500 mt-auto pt-2 border-t border-dashed border-gray-300">EDITED 1 MONTH AGO</p>
+</div>
+</div>
+<div class="card-brutal group relative flex flex-col overflow-hidden bg-white">
+<div class="relative aspect-[3/4] w-full border-b-2 border-black bg-gray-100 p-4">
+<div class="h-full w-full border-2 border-black overflow-hidden bg-white">
+<img alt="Detailed professional document" class="h-full w-full object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Professional text-heavy resume layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWpj2fr1jRCFL3NSiZCy_Qg6l7M87zb6eQ-w364s4TZ8pcWoSKtKrhWc0Jqm14Bfq0EFlcmt-Suar1Gt-b26-G5kjMQKly4_BNrEt4gUi9J8XiKr-YqCaaiQVFLSAhvgRgmYfEETwtBjt0M7RoV0bk-HO02lsctoBsYpY_UN0QKP_vZcfbQ4_kdBxLeTLr9fz2R3BBPxYQNIbjTKWhhZp9tXVSpicHYhyqnnJ9695snOFZP3F9s-bubExvl2toKSaaTH4KSGD6j0g"/>
+</div>
+<div class="absolute inset-0 z-10 flex items-center justify-center gap-3 opacity-0 transition-opacity bg-black/80 group-hover:opacity-100">
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[24px]">edit</span>
+</button>
+<button class="border-2 border-white bg-black p-3 text-white hover:bg-white hover:text-black hover:border-black transition-colors" title="Preview">
+<span class="material-symbols-outlined text-[24px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5 bg-white">
+<div class="mb-3 flex items-center justify-between">
+<span class="inline-flex items-center border border-black bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Completed</span>
+<button class="text-black hover:bg-gray-100 p-1 border border-transparent hover:border-black transition-all">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<h4 class="mb-1 text-lg font-bold uppercase leading-tight text-black group-hover:underline decoration-2 underline-offset-2">Product Manager</h4>
+<p class="font-mono text-xs text-gray-500 mt-auto pt-2 border-t border-dashed border-gray-300">EDITED 2 MONTHS AGO</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
@@ -82,22 +83,22 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     try {
         const { userId } = await auth();
         if (!userId) {
-            return new NextResponse("Unauthorized", { status: 401 });
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
         const { id } = await params;
 
         const existingResume = await verifyResumeOwnership(id, userId);
         if (!existingResume) {
-            return new NextResponse("Resume not found", { status: 404 });
+            return NextResponse.json({ error: "Resume not found" }, { status: 404 });
         }
 
         await db.resume.delete({
             where: { id },
         });
 
-        return new NextResponse(null, { status: 204 });
+        return NextResponse.json({ message: "Resume deleted" });
     } catch (error) {
         console.error("[RESUME_DELETE]", error);
-        return new NextResponse("Internal Error", { status: 500 });
+        return NextResponse.json({ error: "Internal Error" }, { status: 500 });
     }
 }

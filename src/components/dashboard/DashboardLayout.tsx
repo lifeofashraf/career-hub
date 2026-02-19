@@ -4,43 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { UserButton } from "@clerk/nextjs";
-import {
-    LayoutDashboard,
-    FileText,
-    Briefcase,
-    Shield,
-    Menu,
-    X,
-    ChevronRight,
-    Sparkles,
-} from "lucide-react";
+import { Sidebar as SidebarIcon, Menu, X, Search, Plus } from "lucide-react";
+import Sidebar from "./Sidebar";
 
+// Button, cn removed if not used, or kept if needed. The new code uses plain HTML/Tailwind mostly.
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
-const sidebarItems = [
-    {
-        icon: LayoutDashboard,
-        label: "Overview",
-        href: "/dashboard",
-    },
-    {
-        icon: FileText,
-        label: "Resume Builder",
-        href: "/builder",
-    },
-    {
-        icon: Briefcase,
-        label: "Job Tracker",
-        href: "/tracker",
-    },
-    {
-        icon: Shield,
-        label: "Digital Footprint",
-        href: "/footprint",
-    },
-];
+// sidebarItems removed since Sidebar component handles it
 
 export default function DashboardLayout({
     children,
@@ -50,73 +20,14 @@ export default function DashboardLayout({
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
-    const SidebarContent = () => (
-        <div className="flex flex-col h-full bg-card border-r-2 border-border">
-            <div className="h-16 flex items-center px-6 border-b-2 border-border">
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="bg-primary p-1.5 rounded-lg border-2 border-primary/80 shadow-[2px_2px_0_theme(colors.primary/0.4)]">
-                        <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
-                    </div>
-                    <span className="text-base font-extrabold gradient-text">
-                        CareerForge
-                    </span>
-                </Link>
-            </div>
-
-            <div className="flex-1 py-6 px-3 space-y-1.5 overflow-y-auto">
-                {sidebarItems.map((item) => {
-                    const isActive = pathname.startsWith(item.href);
-                    return (
-                        <Link key={item.href} href={item.href} className="block">
-                            <Button
-                                variant={isActive ? "secondary" : "ghost"}
-                                className={cn(
-                                    "w-full justify-start gap-3 relative overflow-hidden",
-                                    isActive
-                                        ? "bg-primary/10 text-primary hover:bg-primary/20 border-2 border-primary/30 shadow-[3px_3px_0_theme(colors.primary/0.15)]"
-                                        : "text-muted-foreground hover:text-foreground hover:bg-card-hover"
-                                )}
-                            >
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="sidebar-active"
-                                        className="absolute inset-0 bg-primary/5 z-0"
-                                        initial={false}
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    />
-                                )}
-                                <item.icon className="size-4 relative z-10" />
-                                <span className="relative z-10">{item.label}</span>
-                            </Button>
-                        </Link>
-                    );
-                })}
-            </div>
-
-            <div className="p-4 border-t-2 border-border">
-                <div className="flex items-center gap-3 p-2 rounded-xl bg-secondary border-2 border-border">
-                    <UserButton
-                        appearance={{
-                            elements: {
-                                avatarBox: "w-8 h-8 rounded-xl border-2 border-border",
-                            }
-                        }}
-                    />
-                    <div className="flex flex-col">
-                        <span className="text-sm font-bold">My Account</span>
-                        <span className="text-xs text-muted-foreground">Manage profile</span>
-                    </div>
+    return (
+        <div className="flex min-h-screen w-full bg-[#f4f4f4]">
+            {/* Desktop Sidebar - Sticky */}
+            <div className="hidden md:flex flex-col flex-shrink-0 relative z-30">
+                <div className="sticky top-0 h-screen">
+                    <Sidebar />
                 </div>
             </div>
-        </div>
-    );
-
-    return (
-        <div className="flex h-screen w-full bg-background overflow-hidden">
-            {/* Desktop Sidebar - Static flex item */}
-            <aside className="hidden lg:flex w-64 flex-col shrink-0 z-50">
-                <SidebarContent />
-            </aside>
 
             {/* Mobile Sidebar - Fixed overlay */}
             <AnimatePresence>
@@ -134,66 +45,72 @@ export default function DashboardLayout({
                             animate={{ x: 0 }}
                             exit={{ x: "-100%" }}
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            className="fixed top-0 left-0 z-50 h-full w-64 lg:hidden"
+                            className="fixed top-0 left-0 z-50 h-full bg-white lg:hidden border-r-2 border-black"
                         >
-                            <SidebarContent />
+                            <Sidebar />
                         </motion.aside>
                     </>
                 )}
             </AnimatePresence>
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+            <main className="flex-1 flex flex-col min-h-screen relative min-w-0">
                 {/* Header */}
-                <header className="h-16 flex-none sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b-2 border-border px-6 flex items-center justify-between">
+                <header className={cn(
+                    "sticky top-0 z-20 flex items-center justify-between border-b-2 border-black bg-white px-4 py-4 md:px-8 md:py-6",
+                    (pathname === "/dashboard" || pathname.includes("/builder")) && "md:hidden border-b-0"
+                )}>
                     <div className="flex items-center gap-4">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="lg:hidden"
+                        <button
+                            className="md:hidden border-2 border-black p-1 hover:bg-black hover:text-white transition-colors"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         >
-                            {isMobileMenuOpen ? <X /> : <Menu />}
-                        </Button>
-
-                        <nav className="hidden md:flex items-center text-sm text-muted-foreground font-semibold">
-                            <Link href="/dashboard" className="hover:text-foreground transition-colors">
-                                Dashboard
-                            </Link>
-                            {pathname !== "/dashboard" && (
-                                <>
-                                    <ChevronRight className="size-4 mx-2" />
-                                    <span className="text-foreground font-bold capitalize">
-                                        {pathname.split("/").pop()}
-                                    </span>
-                                </>
-                            )}
-                        </nav>
+                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                        {pathname !== "/dashboard" && (
+                            <h2 className="text-3xl font-black uppercase tracking-tighter text-black">
+                                {pathname === "/tracker" ? "Applications" :
+                                    pathname === "/footprint" ? "Digital Footprint" :
+                                        pathname.includes("/builder") ? "Editor" :
+                                            pathname.split("/").pop()}
+                            </h2>
+                        )}
                     </div>
+                    {pathname !== "/dashboard" && (
+                        <div className="flex items-center gap-6">
+                            {/* Search Bar - Hidden on mobile */}
+                            <div className="relative hidden w-80 md:block">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black font-bold">
+                                    <Search size={20} strokeWidth={2.5} />
+                                </span>
+                                <input
+                                    className="w-full border-2 border-black bg-white py-2 pl-10 pr-4 text-sm font-mono text-black placeholder-gray-500 focus:outline-none focus:shadow-[4px_4px_0_0_#000000] transition-all"
+                                    placeholder="SEARCH ARCHIVES..."
+                                    type="text"
+                                />
+                            </div>
+                            <Link href="/builder" className="hidden md:block">
+                                <button className="flex items-center gap-2 btn-brutal border-2 border-black bg-black text-white px-4 py-2 hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#000000] hover:shadow-[2px_2px_0_0_#000000] hover:translate-x-[2px] hover:translate-y-[2px]">
+                                    <Plus size={20} strokeWidth={3} />
+                                    <span className="font-bold uppercase tracking-wider">CREATE NEW</span>
+                                </button>
+                            </Link>
+                        </div>
+                    )}
                 </header>
 
-                {/* Scrollable Page Content */}
-                <main className={cn(
-                    "flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent",
-                    pathname?.startsWith("/builder")
-                        ? "p-0"
-                        : "p-6 lg:p-10"
-                )}>
-                    <div className={cn(
-                        "h-full w-full flex flex-col items-center",
-                        !pathname?.startsWith("/builder") && "max-w-6xl mx-auto"
-                    )}>
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
-                            className="h-full w-full"
-                        >
-                            {children}
-                        </motion.div>
-                    </div>
-                </main>
-            </div>
+                {/* Page Content */}
+                <div className="flex-1 bg-[#f4f4f4]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="w-full"
+                    >
+                        {children}
+                    </motion.div>
+                </div>
+            </main>
         </div>
     );
 }

@@ -54,7 +54,7 @@ export default function Hero() {
                     <br />
                     <TextReveal
                         as="span"
-                        className="gradient-text"
+                        className="text-gradient"
                         staggerSpeed={0.04}
                         delay={0.6}
                     >

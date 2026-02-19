@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { useUser, UserButton } from "@clerk/nextjs";
 import {
     LayoutDashboard,
     FileText,
-    Kanban,
-    Shield,
+    FolderOpen,
+    Briefcase,
+    Settings,
     ChevronLeft,
     ChevronRight,
     Sparkles,
@@ -22,19 +23,14 @@ const sidebarLinks = [
         icon: LayoutDashboard,
     },
     {
-        label: "Resume Builder",
-        href: "/builder",
-        icon: FileText,
-    },
-    {
-        label: "Job Tracker",
+        label: "Applications",
         href: "/tracker",
-        icon: Kanban,
+        icon: Briefcase,
     },
     {
-        label: "Digital Footprint",
-        href: "/footprint",
-        icon: Shield,
+        label: "Settings",
+        href: "/settings", // Placeholder or Footprint?
+        icon: Settings,
     },
 ];
 
@@ -42,77 +38,101 @@ export default function Sidebar() {
     const pathname = usePathname();
     const { sidebarOpen, toggleSidebar } = useUiStore();
     const collapsed = !sidebarOpen;
+    const { user } = useUser();
 
     return (
         <aside
             className={cn(
-                "sticky top-0 h-screen flex-shrink-0 flex flex-col border-r-2 border-border bg-card transition-all duration-300 z-30",
-                collapsed ? "w-[72px]" : "w-64"
+                "sticky top-0 h-screen flex-shrink-0 flex flex-col border-r-2 border-black bg-white transition-all duration-300 z-30",
+                collapsed ? "w-[72px]" : "w-72"
             )}
         >
-            {/* Logo */}
-            <div className="flex items-center justify-between px-4 h-16 border-b-2 border-border">
-                {!collapsed && (
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="bg-primary p-1.5 rounded-lg border-2 border-primary/80 shadow-[2px_2px_0_theme(colors.primary/0.4)]">
-                            <Sparkles className="w-3 h-3 text-primary-foreground" />
-                        </div>
-                        <span className="text-base font-extrabold gradient-text">
-                            CareerForge
-                        </span>
-                    </Link>
-                )}
-                <button
-                    onClick={toggleSidebar}
-                    className={cn(
-                        "neo-btn p-2 bg-card text-muted-foreground",
-                        collapsed && "mx-auto"
-                    )}
-                >
-                    {collapsed ? (
-                        <ChevronRight className="w-4 h-4" />
+            <div className="flex flex-col gap-8 p-6 h-full">
+                {/* Header / Logo */}
+                <div className={cn("flex items-center gap-3 pb-6 border-b-2 border-black", collapsed && "justify-center pb-0 border-b-0")}>
+                    {!collapsed ? (
+                        <>
+                            <div className="flex h-12 w-12 items-center justify-center border-2 border-black bg-black text-white shadow-[2px_2px_0_0_#000000]">
+                                <FileText className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-black uppercase tracking-tighter leading-none text-black">
+                                    RESU<br />MATE
+                                </h1>
+                            </div>
+                        </>
                     ) : (
-                        <ChevronLeft className="w-4 h-4" />
-                    )}
-                </button>
-            </div>
-
-            {/* Navigation */}
-            <nav className="flex-1 px-3 py-4 space-y-1.5">
-                {sidebarLinks.map((link) => {
-                    const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
-                    return (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className={cn(
-                                "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200",
-                                isActive
-                                    ? "bg-primary/10 text-primary border-2 border-primary/30 shadow-[3px_3px_0_theme(colors.primary/0.15)]"
-                                    : "text-muted-foreground hover:bg-card-hover hover:text-foreground border-2 border-transparent"
-                            )}
-                        >
-                            <link.icon className={cn("w-5 h-5 flex-shrink-0", isActive && "text-primary")} />
-                            {!collapsed && <span>{link.label}</span>}
-                        </Link>
-                    );
-                })}
-            </nav>
-
-            {/* User section */}
-            <div className="px-3 py-4 border-t-2 border-border">
-                <div className={cn("flex items-center gap-3", collapsed && "justify-center")}>
-                    <UserButton
-                        appearance={{
-                            elements: {
-                                avatarBox: "w-9 h-9 rounded-xl border-2 border-border",
-                            },
-                        }}
-                    />
-                    {!collapsed && (
-                        <span className="text-sm text-muted-foreground font-medium">Account</span>
+                        <div className="flex h-10 w-10 items-center justify-center border-2 border-black bg-black text-white">
+                            <FileText className="w-5 h-5" />
+                        </div>
                     )}
                 </div>
+
+                {/* Navigation */}
+                <nav className="flex flex-col gap-2 flex-1">
+                    {sidebarLinks.map((link) => {
+                        const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={cn(
+                                    "group flex items-center gap-3 border-2 px-3 py-3 font-bold uppercase tracking-wide transition-all",
+                                    isActive
+                                        ? "border-black bg-black text-white shadow-[2px_2px_0_0_#000000]"
+                                        : "border-transparent text-black hover:border-black hover:bg-gray-50 hover:shadow-[2px_2px_0_0_#000000] text-gray-500 hover:text-black",
+                                    collapsed && "justify-center px-0 border-transparent hover:border-transparent hover:bg-transparent shadow-none hover:shadow-none"
+                                )}
+                                title={collapsed ? link.label : undefined}
+                            >
+                                <link.icon className={cn("w-6 h-6", isActive ? "text-white" : "text-current")} />
+                                {!collapsed && <span className="text-sm">{link.label}</span>}
+                            </Link>
+                        );
+                    })}
+                </nav>
+
+                {/* User Profile */}
+                <div className={cn("border-t-2 border-black pt-6", collapsed && "border-t-0 pt-0")}>
+                    {!collapsed ? (
+                        <div className="flex items-center gap-3 border-2 border-black bg-white p-3 hover:shadow-[2px_2px_0_0_#000000] transition-all cursor-pointer">
+                            <div className="h-10 w-10 overflow-hidden border-2 border-black bg-gray-200">
+                                <UserButton
+                                    appearance={{
+                                        elements: {
+                                            avatarBox: "w-full h-full rounded-none",
+                                            rootBox: "w-full h-full"
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div className="flex flex-1 flex-col overflow-hidden">
+                                <span className="truncate text-sm font-bold uppercase text-black">
+                                    {user?.fullName || "User"}
+                                </span>
+                                <span className="truncate text-xs font-mono text-gray-600">PRO MEMBER</span>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex justify-center">
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        avatarBox: "w-8 h-8 rounded-none border-2 border-black"
+                                    }
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                {/* Toggle Button (Desktop Only logic usually, but here we keep it simple or remove if responsive handles it) */}
+                <button
+                    onClick={toggleSidebar}
+                    className="absolute -right-3 top-20 bg-white border-2 border-black p-1 hover:bg-black hover:text-white transition-colors lg:hidden"
+                >
+                    {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+                </button>
             </div>
         </aside>
     );

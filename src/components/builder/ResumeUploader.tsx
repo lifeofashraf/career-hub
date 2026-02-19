@@ -59,8 +59,15 @@ export default function ResumeUploader() {
             });
 
             if (!parseRes.ok) {
-                const err = await parseRes.json();
-                throw new Error(err.error || "Failed to parse resume");
+                let errorMsg = "Failed to parse resume";
+                try {
+                    const err = await parseRes.json();
+                    errorMsg = err.error || errorMsg;
+                } catch {
+                    const text = await parseRes.text();
+                    if (text) errorMsg = text;
+                }
+                throw new Error(errorMsg);
             }
 
             const parseData = await parseRes.json();
@@ -85,7 +92,15 @@ export default function ResumeUploader() {
             });
 
             if (!createRes.ok) {
-                throw new Error("Failed to create resume");
+                let errorMsg = "Failed to create resume";
+                try {
+                    const err = await createRes.json();
+                    errorMsg = err.error || errorMsg;
+                } catch {
+                    const text = await createRes.text();
+                    if (text) errorMsg = text;
+                }
+                throw new Error(errorMsg);
             }
 
             const newResume = await createRes.json();

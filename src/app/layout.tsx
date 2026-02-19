@@ -3,11 +3,38 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import { Inter, Archivo, Space_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "CareerForge — Career Tools That Actually Help",
+  title: "Resumate — Career Tools That Actually Help",
   description:
     "Free, privacy-first career tools. Build stunning resumes, track job applications, and secure your digital footprint.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -29,20 +56,8 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en" className="dark">
-        <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
-          />
-        </head>
-        <body className="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200">
+      <html lang="en">
+        <body className={`${inter.variable} ${archivo.variable} ${spaceMono.variable} bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200`}>
           <SmoothScroll>
             {children}
           </SmoothScroll>

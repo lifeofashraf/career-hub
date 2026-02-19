@@ -1,24 +1,90 @@
 @import "tailwindcss";
 
-/* ============================================
-   CareerForge — Redesigned Theme (Navy/Purple/Pink)
-   ============================================ */
-
 @theme {
+  --color-primary: #000000;
+  --color-secondary: #ffffff;
+  --color-accent-gray: #f0f0f0;
+  --color-accent-red: #ef4444;
+
   --font-sans: "Inter", sans-serif;
+  --font-mono: "Space Mono", monospace;
 
-  --color-navy-900: #0a0e17;
-  --color-navy-800: #111625;
-
-  --color-brand-purple: #A855F7;
-  --color-brand-pink: #EC4899;
-
-  --background-image-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --shadow-brutal: 4px 4px 0px 0px #000000;
+  --shadow-brutal-sm: 2px 2px 0px 0px #000000;
 }
 
+@layer utilities {
+  .brutal-shadow {
+    box-shadow: 4px 4px 0px 0px #000000;
+  }
+
+  .brutal-shadow-sm {
+    box-shadow: 2px 2px 0px 0px #000000;
+  }
+
+  .brutal-shadow-hover:hover {
+    box-shadow: 2px 2px 0px 0px #000000;
+    transform: translate(2px, 2px);
+  }
+
+  .brutal-shadow-active:active {
+    box-shadow: 0px 0px 0px 0px #000000;
+    transform: translate(4px, 4px);
+  }
+
+  .btn-brutal {
+    @apply border-2 border-black bg-white text-black font-bold uppercase tracking-wider px-6 py-2 transition-all;
+    box-shadow: 4px 4px 0px 0px #000000;
+  }
+
+  .btn-brutal:hover {
+    @apply bg-black text-white;
+    box-shadow: 2px 2px 0px 0px #000000;
+    transform: translate(2px, 2px);
+  }
+
+  .btn-brutal:active {
+    box-shadow: 0px 0px 0px 0px #000000;
+    transform: translate(4px, 4px);
+  }
+
+  .input-brutal {
+    @apply w-full min-w-0 border-2 border-black bg-white px-4 py-3 text-sm text-black focus:outline-none transition-all placeholder:text-neutral-500 font-mono;
+  }
+
+  .input-brutal:focus {
+    box-shadow: 4px 4px 0px 0px #000000;
+    transform: translate(-2px, -2px);
+  }
+
+  .brutalist-shadow {
+    box-shadow: 6px 6px 0px 0px #000000;
+  }
+
+  .brutalist-shadow-sm {
+    box-shadow: 3px 3px 0px 0px #000000;
+  }
+
+  .brutalist-shadow-hover:hover {
+    box-shadow: 2px 2px 0px 0px #000000;
+    transform: translate(4px, 4px);
+  }
+
+  .brutalist-shadow-active:active {
+    box-shadow: 0px 0px 0px 0px #000000;
+    transform: translate(6px, 6px);
+  }
+
+  .panel-grid {
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+/* Global Resets */
 :root {
-  --background: #0a0e17;
-  --foreground: #d1d5db;
+  --background: #ffffff;
+  --foreground: #000000;
 }
 
 body {
@@ -27,102 +93,89 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  margin: 0;
-  min-height: 100vh;
-}
-
-/* Ambient background glow blobs */
-.glow-blob {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(10, 14, 23, 0) 70%);
-  border-radius: 50%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.blob-1 {
-  top: -200px;
-  left: -100px;
-}
-
-.blob-2 {
-  top: 20%;
-  right: -200px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(10, 14, 23, 0) 70%);
-}
-
-.blob-3 {
-  bottom: -100px;
-  left: 20%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(10, 14, 23, 0) 70%);
-}
-
-/* Text Gradients */
-.text-gradient {
-  background: linear-gradient(to right, #EC4899 0%, #A855F7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(168, 85, 247, 0.5);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Legacy Utilities for compatibility (if any) */
-.btn-primary {
-  background: linear-gradient(to right, #A855F7, #EC4899);
-  color: white;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.btn-glass {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  backdrop-filter: blur(4px);
-  transition: all 0.2s ease;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #ffffff;
+  border-left: 2px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 3px;
+  background: #000000;
+  border: 2px solid #ffffff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #333333;
+}
+
+/* Print Styles */
+/* Print Styles */
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  body {
+    background: white;
+    visibility: hidden;
+  }
+
+  /* Hide everything by default */
+  nav,
+  header,
+  aside,
+  button,
+  .no-print,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+
+  /* Specific Resets for Resume Preview Container */
+  #resume-preview-content {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 9999;
+    overflow: visible;
+
+    /* Force legacy colors for html2canvas compatibility */
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+    --color-gray-950: #030712;
+  }
+
+  /* Ensure children are visible */
+  #resume-preview-content * {
+    visibility: visible;
+  }
+
+  /* Hide the mock browser chrome/UI shells if they exist in preview */
+  #resume-preview-content .uppercase.text-xs.font-bold,
+  #resume-preview-content .tracking-widest {
+    display: none !important;
+  }
 }

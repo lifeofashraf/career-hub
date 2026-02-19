@@ -1,17 +1,14 @@
-import OpenAI from "openai";
+import { OpenRouter } from "@openrouter/sdk";
 
 // ============================================
 // OpenRouter AI Client
 // ============================================
 
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
+const openrouter = new OpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
-  // safe to allow browser usage if needed, but we're server - side only
-  dangerouslyAllowBrowser: true,
 });
 
-const MODEL = process.env.OPENROUTER_MODEL || "google/gemini-2.0-flash-001";
+const MODEL = process.env.OPENROUTER_MODEL || "stepfun/step-3.5-flash:free";
 
 // ============================================
 // Resume Data Schema (matching resumeStore.ts)
@@ -96,12 +93,26 @@ Return the COMPLETE resume JSON with the same structure as the input, but with i
 RETURN ONLY JSON.`;
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: MODEL,
-      messages: [{ role: "user", content: prompt }],
+    const completion = await openrouter.chat.send({
+      // @ts-ignore
+      chatGenerationParams: {
+        model: MODEL,
+        messages: [{ role: "user", content: prompt }],
+        provider: {
+          sort: "throughput",
+        },
+      }
     });
 
-    const response = completion.choices[0].message.content || "{}";
+    // @ts-ignore
+    const rawContent = completion.choices?.[0]?.message?.content || "{}";
+    let response = "";
+    if (typeof rawContent === "string") {
+      response = rawContent;
+    } else if (Array.isArray(rawContent)) {
+      response = rawContent.map((part: any) => part.text || "").join("");
+    }
+
     const cleaned = response.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
     const parsed = JSON.parse(cleaned);
 
@@ -113,11 +124,11 @@ RETURN ONLY JSON.`;
 }
 
 // ============================================
-// Parse Resume from Text
+// Parse Resume from Text (or Image Fallback)
 // ============================================
 
 export async function parseResumeWithAI(text: string, base64Pdf?: string) {
-  const prompt = `You are an expert resume parser. Extract structured data from the following resume and return it as a JSON object.
+  const prompt = `You are an expert resume parser. Extract structured data from the following resume text and return it as a JSON object.
 
 IMPORTANT RULES:
 1. Extract ALL information present in the resume
@@ -130,19 +141,21 @@ IMPORTANT RULES:
 OUTPUT SCHEMA:
 ${RESUME_SCHEMA}
 
-${base64Pdf ? "RESUME (Attached as PDF):" : "RESUME TEXT:"}
-${base64Pdf ? "" : text}
-`;
+RESUME TEXT:
+${text}
+
+RETURN THE RESPONSE AS RAW JSON ONLY. DO NOT USE MARKDOWN BLOCK FORMATTING (no triple backticks). JUST RETURN THE RAW JSON OBJECT.
+  `;
 
   try {
     const messages: any[] = [{ role: "user", content: prompt }];
 
-    if (base64Pdf) {
-      // For Gemini via OpenRouter, we can try sending as image_url with application/pdf mime type
-      // or just text if it's not supported, but let's try the multimodal approach.
-      // Note: OpenAI SDK 'image_url' usually expects images, but OpenRouter + Gemini often handles PDF data URLs.
+    // Handle PDF-as-Image Fallback
+    if (!text && base64Pdf) {
+      console.log("[AI_PARSE] text empty, using Vision Fallback with base64 PDF");
+      const visionPrompt = "Please extract data from this PDF.\n" + prompt;
       messages[0].content = [
-        { type: "text", text: prompt },
+        { type: "text", text: visionPrompt },
         {
           type: "image_url",
           image_url: {
@@ -150,25 +163,63 @@ ${base64Pdf ? "" : text}
           }
         }
       ];
+    } else {
+      console.log("[AI_PARSE] Using text-only extraction mode");
     }
 
-    const completion = await openai.chat.completions.create({
-      model: MODEL,
-      messages: messages as any,
+    console.log(`[AI_PARSE] Sending request to OpenRouter SDK (Model: ${MODEL})...`);
+
+    const completion = await openrouter.chat.send({
+      // @ts-ignore
+      chatGenerationParams: {
+        model: MODEL,
+        messages: messages,
+        provider: {
+          sort: "throughput",
+        },
+      }
     });
 
-    const response = completion.choices[0].message.content || "{}";
-    console.log("[AI_PARSE] Raw AI response:", response.substring(0, 100) + "...");
+    // @ts-ignore
+    const rawContentData = completion.choices?.[0]?.message?.content || "{}";
+    let rawContent = "";
+    if (typeof rawContentData === "string") {
+      rawContent = rawContentData;
+    } else if (Array.isArray(rawContentData)) {
+      rawContent = rawContentData.map((part: any) => part.text || "").join("");
+    }
 
-    const cleaned = response
+    console.log("[AI_PARSE] Raw Content Length:", rawContent.length);
+
+    // 1. Strip <think>...</think> blocks common in reasoning models
+    let cleaned = rawContent.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+
+    // 2. Strip Markdown code blocks
+    cleaned = cleaned
       .replace(/```json\s*/g, "")
       .replace(/```\s*/g, "")
       .trim();
 
-    const parsed = JSON.parse(cleaned);
-    return { success: true, data: parsed };
+    // 3. Find the first '{' and last '}' to extract the JSON object
+    const firstOpen = cleaned.indexOf("{");
+    const lastClose = cleaned.lastIndexOf("}");
+
+    if (firstOpen !== -1 && lastClose !== -1) {
+      cleaned = cleaned.substring(firstOpen, lastClose + 1);
+    } else {
+      console.warn("[AI_PARSE] No JSON brackets found, attempting parse on raw cleaned string...");
+    }
+
+    try {
+      const parsed = JSON.parse(cleaned);
+      return { success: true, data: parsed };
+    } catch (jsonErr) {
+      console.error("[AI_PARSE] JSON Parse Error. Cleaned content snippet:", cleaned.substring(0, 200));
+      throw new Error("Failed to parse valid JSON from AI response");
+    }
+
   } catch (e: any) {
-    console.error("[AI_PARSE] API Failed:", e);
+    console.error("[AI_PARSE] Critical Failure:", e);
     return { success: false, error: e.message || "Failed to parse AI response" };
   }
 }
@@ -181,10 +232,11 @@ type OptimizableSection = "summary" | "work" | "projects";
 
 const sectionPrompts: Record<OptimizableSection, string> = {
   summary: `You are an expert resume writer. Rewrite the following professional summary to be:
-- Concise (2-3 impactful sentences)
+- formatted as 3-4 short, impactful bullet points
+- using "•" as the bullet character
 - ATS-optimized with relevant keywords
-- Written in first person without "I"
-- Highlighting key strengths and value proposition`,
+- written in first person without "I"
+- highlighting key strengths and value proposition`,
 
   work: `You are an expert resume writer. Optimize the following work experience bullet points to be:
 - Action-verb driven (Led, Developed, Increased, etc.)
@@ -218,17 +270,38 @@ ${JSON.stringify(content, null, 2)}
 Return the optimized content as a JSON object with the EXACT SAME structure as the input. Do not change field names or add/remove fields. Return ONLY valid JSON.`;
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: MODEL,
-      messages: [{ role: "user", content: prompt }],
+    const completion = await openrouter.chat.send({
+      // @ts-ignore
+      chatGenerationParams: {
+        model: MODEL,
+        messages: [{ role: "user", content: prompt }],
+        provider: {
+          sort: "throughput",
+        },
+      }
     });
 
-    const response = completion.choices[0].message.content || "{}";
+    // @ts-ignore
+    const rawContent = completion.choices?.[0]?.message?.content || "{}";
+    let response = "";
+    if (typeof rawContent === "string") {
+      response = rawContent;
+    } else if (Array.isArray(rawContent)) {
+      response = rawContent.map((part: any) => part.text || "").join("");
+    }
 
-    const cleaned = response
+    let cleaned = response
       .replace(/```json\s*/g, "")
       .replace(/```\s*/g, "")
       .trim();
+
+    // Find the first '{' and last '}' to extract the JSON object if there is extra text
+    const firstOpen = cleaned.indexOf("{");
+    const lastClose = cleaned.lastIndexOf("}");
+
+    if (firstOpen !== -1 && lastClose !== -1) {
+      cleaned = cleaned.substring(firstOpen, lastClose + 1);
+    }
 
     const parsed = JSON.parse(cleaned);
     return { success: true, data: parsed };

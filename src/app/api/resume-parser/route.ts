@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { parseResumeWithAI } from "@/lib/ai";
@@ -6,7 +7,7 @@ export async function POST(req: Request) {
     try {
         const { userId } = await auth();
         if (!userId) {
-            return new NextResponse("Unauthorized", { status: 401 });
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         // Parse multipart form data
@@ -80,8 +81,9 @@ export async function POST(req: Request) {
             }
         };
 
+        // Use default render logic for better compatibility
         const options = {
-            pagerender: render_page
+            // pagerender: render_page 
         };
 
         let pdfData;
@@ -100,35 +102,38 @@ export async function POST(req: Request) {
         console.log("[PDF_EXTRACT] Extracted length:", pdfData.text.length);
         console.log("[PDF_EXTRACT] Preview:", pdfData.text.substring(0, 500).replace(/\n/g, "\\n"));
 
+        // Low text yield check
         if (!pdfData.text || pdfData.text.trim().length < 50) {
-            console.warn("[PDF_EXTRACT] Low text yield (" + (pdfData.text ? pdfData.text.length : 0) + " chars). attempting Cloud OCR via Gemini...");
+            console.warn("[PDF_EXTRACT] Low text yield (" + (pdfData.text ? pdfData.text.length : 0) + " chars). Attempting AI Vision fallback...");
 
-            // Cloud Fallback: Information "In the cloud"
-            // If local text extracted is garbage, we send the PDF binary to Gemini 2.0 Flash
-            // which has native PDF understanding (OCR).
-            const base64Pdf = buffer.toString("base64");
+            try {
+                // Cloud Fallback
+                const base64Pdf = buffer.toString("base64");
+                console.log("[AI_PARSE] Sending PDF binary to AI (Vision Mode)...");
 
-            console.log("[AI_PARSE] Sending PDF binary to AI (Cloud Native Mode)...");
-            const result = await parseResumeWithAI("", base64Pdf); // Pass empty text, but provide PDF
+                const result = await parseResumeWithAI("", base64Pdf);
 
-            if (!result.success) {
+                if (result.success) {
+                    console.log("[AI_PARSE] Cloud Success. Name:", result.data?.basics?.name);
+                    return NextResponse.json({
+                        success: true,
+                        data: result.data,
+                        meta: {
+                            pages: pdfData.numpages,
+                            textLength: 0,
+                            cloudMode: true
+                        },
+                    });
+                }
+
                 console.error("[AI_PARSE] Cloud Fallback Failed:", result.error);
-                return NextResponse.json(
-                    { error: "Could not parse resume. Even Cloud AI failed to read this file. Please ensure it is a valid PDF." },
-                    { status: 422 }
-                );
-            }
+                // If vision fails, FALL THROUGH to try text parsing anyway
+                console.log("[AI_PARSE] Falling back to available text (even if low yield)...");
 
-            console.log("[AI_PARSE] Cloud Success. Name:", result.data?.basics?.name);
-            return NextResponse.json({
-                success: true,
-                data: result.data,
-                meta: {
-                    pages: pdfData.numpages,
-                    textLength: 0, // Virtual
-                    cloudMode: true
-                },
-            });
+            } catch (fallbackErr) {
+                console.error("[AI_PARSE] Vision fallback exception:", fallbackErr);
+                // Fall through
+            }
         }
 
         // Send extracted text to Gemini for structured parsing

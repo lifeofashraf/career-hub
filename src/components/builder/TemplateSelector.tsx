@@ -20,8 +20,8 @@ export default function TemplateSelector({ selected, onSelect }: TemplateSelecto
     return (
         <div className="space-y-6">
             <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Choose Template</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="text-lg font-semibold text-black mb-1">Choose Template</h3>
+                <p className="text-sm text-neutral-600">
                     All templates are ATS-friendly and optimized for job applications.
                 </p>
             </div>
@@ -35,16 +35,16 @@ export default function TemplateSelector({ selected, onSelect }: TemplateSelecto
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
                         className={cn(
-                            "glass-card relative w-full text-left p-6 transition-all duration-300 group border border-transparent",
+                            "w-full text-left p-6 transition-all duration-200 group border-2 border-black relative brutal-shadow hover:brutal-shadow-hover active:brutal-shadow-active",
                             selected === template.id
-                                ? "bg-primary/20 border-primary/50 shadow-[0_0_20px_rgba(139,92,246,0.2)]"
-                                : "hover:bg-white/5 hover:border-white/10"
+                                ? "bg-black text-white"
+                                : "bg-white text-black hover:bg-neutral-50"
                         )}
                     >
                         {/* Selected indicator */}
                         {selected === template.id && (
-                            <div className="absolute top-4 right-4 p-1.5 bg-primary rounded-full shadow-lg shadow-primary/40 animate-pulse-soft">
-                                <Check className="w-4 h-4 text-white" />
+                            <div className="absolute top-4 right-4 p-1 bg-white border-2 border-black">
+                                <Check className="w-4 h-4 text-black" />
                             </div>
                         )}
 
@@ -52,10 +52,10 @@ export default function TemplateSelector({ selected, onSelect }: TemplateSelecto
                             {/* Template icon */}
                             <div
                                 className={cn(
-                                    "p-3 rounded-2xl border transition-colors shrink-0",
+                                    "p-2 border-2 border-black shrink-0",
                                     selected === template.id
-                                        ? "bg-primary/20 border-primary/30 text-primary"
-                                        : "bg-white/5 border-white/10 text-muted-foreground group-hover:text-foreground group-hover:border-white/20"
+                                        ? "bg-white text-black"
+                                        : "bg-neutral-100 text-black group-hover:bg-white"
                                 )}
                             >
                                 {templateIcons[template.id]}
@@ -63,13 +63,13 @@ export default function TemplateSelector({ selected, onSelect }: TemplateSelecto
 
                             {/* Template info */}
                             <div className="flex-1 min-w-0 pt-1">
-                                <h4 className={cn(
-                                    "font-semibold mb-1.5 text-lg transition-colors",
-                                    selected === template.id ? "text-primary text-glow" : "text-foreground"
-                                )}>
+                                <h4 className="font-black uppercase text-lg mb-1 tracking-tight font-sans">
                                     {template.name}
                                 </h4>
-                                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                                <p className={cn(
+                                    "text-sm leading-relaxed mb-4 font-mono",
+                                    selected === template.id ? "text-neutral-300" : "text-neutral-600"
+                                )}>
                                     {template.description}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
@@ -77,10 +77,10 @@ export default function TemplateSelector({ selected, onSelect }: TemplateSelecto
                                         <span
                                             key={tag}
                                             className={cn(
-                                                "px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border transition-colors",
+                                                "px-2 py-1 text-[10px] font-bold uppercase tracking-wider border-2 border-black font-mono",
                                                 selected === template.id
-                                                    ? "bg-primary/10 border-primary/20 text-primary"
-                                                    : "bg-white/5 border-white/10 text-muted-foreground group-hover:border-white/20"
+                                                    ? "bg-white text-black"
+                                                    : "bg-neutral-100 text-black"
                                             )}
                                         >
                                             {tag}

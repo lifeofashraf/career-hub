@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, FileText, Loader2, Calendar, Trash2, Upload } from "lucide-react";
-import { formatDate } from "@/lib/utils";
+import { formatDate, generateId } from "@/lib/utils";
 import { motion } from "framer-motion";
 import ResumeUploader from "@/components/builder/ResumeUploader";
+import { EXAMPLE_RESUME_DATA, EMPTY_RESUME_DATA } from "@/lib/example-data";
 
 interface Resume {
     id: string;
@@ -46,7 +47,10 @@ export default function BuilderListPage() {
             const res = await fetch("/api/resumes", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title: "My New Resume" }),
+                body: JSON.stringify({
+                    title: "Untitled Resume",
+                    data: EMPTY_RESUME_DATA
+                }),
             });
 
             if (res.ok) {

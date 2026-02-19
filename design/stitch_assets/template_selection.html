@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Caps Lock Template Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "accent": "#ff0000",
+                        "highlight": "#ffff00",
+                        "background-light": "#ffffff",
+                        "background-dark": "#000000",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Courier New", "monospace"]
+                    },
+                    borderWidth: {
+                        "3": "3px",
+                        "4": "4px",
+                    },
+                    boxShadow: {
+                        "hard": "4px 4px 0px 0px rgba(0,0,0,1)",
+                        "hard-hover": "2px 2px 0px 0px rgba(0,0,0,1)",
+                        "hard-lg": "8px 8px 0px 0px rgba(0,0,0,1)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px black;
+            color: transparent;
+        }
+        .pattern-grid {
+            background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #fff;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-black min-h-screen flex flex-col font-display selection:bg-black selection:text-white">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b-4 border-black bg-white px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-12 border-2 border-black bg-black text-white">
+<span class="material-symbols-outlined text-3xl font-bold">description</span>
+</div>
+<h1 class="text-3xl font-black tracking-tighter uppercase italic">RESUME<span class="text-stroke">BUILDER</span>.EXE</h1>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-8 text-sm font-bold tracking-widest uppercase">
+<a class="hover:underline decoration-4 decoration-black underline-offset-4" href="#">Dashboard</a>
+<a class="bg-black text-white px-2 py-1" href="#">New Resume</a>
+<a class="hover:underline decoration-4 decoration-black underline-offset-4" href="#">Cover Letters</a>
+</nav>
+<div class="h-8 w-1 bg-black"></div>
+<div class="flex items-center gap-4">
+<button class="flex h-10 items-center justify-center border-2 border-black bg-white px-6 text-sm font-black uppercase shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-hover transition-all">
+                    Go Pro
+                </button>
+<div class="size-10 border-2 border-black bg-gray-200 bg-cover bg-center" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB67Dlzx_ChFOcR7CWY8nxRqcSaI17JGuWCnwMxsFm79IS3OduMcPDXlFPRpI-geLRydpVkT2mGJ86oYHVZRk-jPIjXKsJyGG_-LAwLYguCP7UUEv1yT9cnEt29pb4h9g6tSdNeerHmMIJwnxuxG_rnkEfqQtQlM425PFUM0OE9RkFkjyo0kUdE_H9RyZnDvbfnxH3Ve2crXjzBIgRAQpsCeXOGMJUxHFnZHZXreJ1Pq7j0HTrsbuJP5QPZn-JpYj4AwxHiiBcNwRY');"></div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<div class="absolute inset-0 pointer-events-none pattern-grid z-0"></div>
+<aside class="hidden w-72 flex-col border-r-4 border-black bg-white py-8 px-6 lg:flex overflow-y-auto z-10">
+<div class="mb-10">
+<h2 class="mb-6 text-xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Filter By</h2>
+<nav class="flex flex-col gap-3">
+<a class="group flex items-center gap-3 border-2 border-black bg-black px-4 py-3 text-sm font-bold text-white shadow-[4px_4px_0px_0px_rgba(100,100,100,1)]" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+                        All Templates
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">star</span>
+                        Recommended
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">work</span>
+                        Modern
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">verified</span>
+                        Professional
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">palette</span>
+                        Creative
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">article</span>
+                        Simple
+                    </a>
+<a class="group flex items-center gap-3 border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black hover:bg-gray-100 transition-colors" href="#">
+<span class="material-symbols-outlined">school</span>
+                        Academic
+                    </a>
+</nav>
+</div>
+<div class="mt-auto border-4 border-black p-4 bg-yellow-300 shadow-hard">
+<h3 class="mb-2 text-lg font-black uppercase">Unlock Pro</h3>
+<p class="mb-4 text-xs font-bold font-mono leading-tight">Access premium industrial grade templates.</p>
+<button class="w-full border-2 border-black bg-white py-2 text-xs font-black uppercase hover:bg-black hover:text-white transition-colors">
+                        Upgrade
+                    </button>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-white p-6 md:p-10 lg:p-12 z-10">
+<div class="mx-auto max-w-7xl">
+<nav class="mb-8 flex items-center text-xs font-mono font-bold uppercase tracking-wider text-gray-500">
+<a class="hover:text-black hover:underline" href="#">Dashboard</a>
+<span class="mx-2 text-black">/</span>
+<span class="text-black bg-yellow-300 px-1">New Resume</span>
+</nav>
+<div class="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b-4 border-black pb-8">
+<div class="max-w-xl flex-1">
+<h2 class="mb-2 text-5xl font-black tracking-tighter uppercase">Template Select</h2>
+<p class="mb-6 font-mono text-sm font-bold text-gray-600">/// CHOOSE_YOUR_LAYOUT_STRUCTURE ///</p>
+<div class="relative group">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-black font-bold">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full border-4 border-black bg-white py-4 pl-12 pr-4 text-lg font-bold text-black placeholder:text-gray-400 focus:outline-none focus:bg-yellow-50 focus:ring-0 shadow-hard transition-all" placeholder="SEARCH TEMPLATES..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 border-4 border-black bg-white px-4 py-3 text-sm font-black uppercase shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-hover transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                            Filter
+                        </button>
+<button class="flex items-center gap-2 border-4 border-black bg-white px-4 py-3 text-sm font-black uppercase shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-hover transition-all">
+<span class="material-symbols-outlined">sort</span>
+                            Sort
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full p-4 flex flex-col overflow-hidden">
+<div class="flex h-full flex-col gap-2 border-2 border-gray-300 bg-white p-3 shadow-sm grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="flex gap-2 mb-2">
+<div class="h-10 w-10 bg-black"></div>
+<div class="flex flex-col gap-1 w-2/3">
+<div class="h-3 w-full bg-black"></div>
+<div class="h-2 w-1/2 bg-gray-400"></div>
+</div>
+</div>
+<div class="h-2 w-full bg-gray-200 mt-2"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-3/4 bg-gray-200"></div>
+<div class="mt-4 h-full flex gap-2">
+<div class="w-1/3 flex flex-col gap-2">
+<div class="h-24 w-full bg-gray-100 border border-gray-200"></div>
+</div>
+<div class="w-2/3 flex flex-col gap-2">
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-1/2 bg-gray-200"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+<div class="absolute -right-2 -top-2 border-2 border-black bg-yellow-400 px-3 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-20">
+                                Best Seller
+                            </div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Minimalist Blue</h3>
+<span class="bg-gray-200 px-2 py-0.5 text-xs font-mono font-bold border border-black">FREE</span>
+</div>
+</div>
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full p-4 flex flex-col overflow-hidden">
+<div class="flex h-full flex-col border-2 border-gray-300 bg-white shadow-sm grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="h-16 w-full bg-black flex items-center px-4">
+<div class="h-3 w-1/2 bg-white"></div>
+</div>
+<div class="p-3 flex-1 flex flex-col gap-2">
+<div class="flex gap-2">
+<div class="w-1/3 flex flex-col gap-1">
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="h-2 w-3/4 bg-gray-300"></div>
+</div>
+<div class="w-2/3 flex flex-col gap-1">
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="h-2 w-full bg-gray-300"></div>
+</div>
+</div>
+<div class="mt-2 h-1 w-full bg-black"></div>
+<div class="flex-1 bg-gray-50"></div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+<div class="absolute -right-2 -top-2 border-2 border-black bg-green-400 px-3 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-20">
+                                New
+                            </div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Executive Bold</h3>
+<span class="bg-black text-white px-2 py-0.5 text-xs font-mono font-bold border border-black">PRO</span>
+</div>
+</div>
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full p-4 flex flex-col overflow-hidden">
+<div class="flex h-full border-2 border-gray-300 bg-white shadow-sm grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="w-1/3 bg-gray-200 h-full p-2 flex flex-col gap-2 border-r-2 border-black">
+<div class="aspect-square w-full bg-black"></div>
+<div class="h-2 w-full bg-gray-400 mt-2"></div>
+<div class="h-2 w-2/3 bg-gray-400"></div>
+</div>
+<div class="w-2/3 p-3 flex flex-col gap-2">
+<div class="h-6 w-3/4 bg-black mb-2"></div>
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="h-2 w-1/2 bg-gray-300"></div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Creative Split</h3>
+<span class="bg-gray-200 px-2 py-0.5 text-xs font-mono font-bold border border-black">FREE</span>
+</div>
+</div>
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full bg-white p-6 flex flex-col items-center justify-center border-2 border-transparent grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="w-full text-center space-y-2">
+<div class="mx-auto h-4 w-12 bg-black"></div>
+<div class="mx-auto h-2 w-24 bg-gray-400"></div>
+</div>
+<div class="mt-6 w-full space-y-3 px-2">
+<div class="h-1 w-full bg-black"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-2/3 bg-gray-200"></div>
+</div>
+<div class="mt-4 w-full space-y-3 px-2">
+<div class="h-1 w-full bg-black"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-2/3 bg-gray-200"></div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Clean Serif</h3>
+<span class="bg-black text-white px-2 py-0.5 text-xs font-mono font-bold border border-black">PRO</span>
+</div>
+</div>
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full p-4 flex flex-col overflow-hidden">
+<div class="flex h-full flex-col border-2 border-gray-300 bg-white shadow-sm grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="h-6 w-full bg-black mb-2"></div>
+<div class="px-3 pb-3 flex flex-col gap-2 h-full">
+<div class="flex justify-between items-end border-b-2 border-gray-200 pb-2">
+<div class="h-4 w-1/3 bg-black"></div>
+<div class="h-8 w-8 bg-gray-300 border border-black"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 h-full pt-2">
+<div class="space-y-1 border-r border-dashed border-gray-300 pr-2">
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-2/3 bg-gray-200"></div>
+</div>
+<div class="space-y-1">
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-2/3 bg-gray-200"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Modern Grid</h3>
+<span class="bg-gray-200 px-2 py-0.5 text-xs font-mono font-bold border border-black">FREE</span>
+</div>
+</div>
+<div class="group relative flex flex-col">
+<div class="relative aspect-[1/1.41] w-full border-4 border-black bg-gray-100 shadow-hard transition-all duration-200 group-hover:shadow-hard-lg group-hover:-translate-y-1">
+<div class="h-full w-full bg-gray-50 p-4 flex flex-col overflow-hidden">
+<div class="h-full w-full bg-white border-l-8 border-black p-3 shadow-sm flex flex-col gap-2 grayscale group-hover:grayscale-0 transition-all duration-300">
+<div class="h-4 w-1/2 bg-black mb-2"></div>
+<div class="h-2 w-full bg-gray-300"></div>
+<div class="mt-2 h-3 w-1/4 bg-black/80"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="mt-2 h-3 w-1/4 bg-black/80"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+<div class="h-2 w-full bg-gray-200"></div>
+</div>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-yellow-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 border-4 border-transparent group-hover:border-black m-[-4px]">
+<button class="w-40 border-4 border-black bg-black py-3 text-sm font-black text-white uppercase hover:bg-white hover:text-black transition-colors">
+                                Use Template
+                            </button>
+<button class="w-40 border-4 border-black bg-white py-3 text-sm font-black text-black uppercase hover:bg-gray-100 transition-colors">
+                                Preview
+                            </button>
+</div>
+<div class="absolute -right-2 -top-2 border-2 border-black bg-red-500 px-3 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-20 text-white">
+                                Popular
+                            </div>
+</div>
+<div class="mt-4 flex items-center justify-between border-b-2 border-black pb-1">
+<h3 class="text-lg font-bold uppercase">Sidebar Accent</h3>
+<span class="bg-black text-white px-2 py-0.5 text-xs font-mono font-bold border border-black">PRO</span>
+</div>
+</div>
+</div>
+<div class="mt-16 flex justify-center pb-12">
+<button class="group flex items-center gap-3 border-4 border-black bg-white px-8 py-4 text-sm font-black text-black shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-hover transition-all uppercase">
+                        Load More Templates
+                        <span class="material-symbols-outlined font-black group-hover:rotate-180 transition-transform duration-300">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -27,10 +27,10 @@ export default function Footer() {
                     {/* Brand */}
                     <div>
                         <Link href="/" className="flex items-center gap-2 mb-4 group">
-                            <div className="bg-primary p-1.5 rounded-lg border-2 border-primary/80 shadow-[2px_2px_0_theme(colors.primary/0.4)]">
-                                <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
+                            <div className="bg-black p-1.5 border-2 border-black group-hover:bg-white group-hover:text-black transition-colors">
+                                <Sparkles className="w-3.5 h-3.5 text-white group-hover:text-black" />
                             </div>
-                            <span className="text-xl font-extrabold gradient-text">
+                            <span className="text-xl font-black uppercase tracking-tight text-black">
                                 CareerForge
                             </span>
                         </Link>

@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
             where: { userId },
         });
 
-        let completedItems = (existing?.completedItems as string[]) || [];
+        let completedItems = existing?.completedItems || [];
 
         if (isChecked) {
             if (!completedItems.includes(itemId)) {

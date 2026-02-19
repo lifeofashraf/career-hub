@@ -1,10 +1,12 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -19,6 +21,15 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Stripe Subscription
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  
+  plan    String @default("free") // free, pro, lifetime
+  credits Int    @default(3)      // AI credits
 }
 
 model Resume {
@@ -30,8 +41,8 @@ model Resume {
   slug      String   @unique
   template  String   @default("minimal")
   isPublic  Boolean  @default(false)
-  data      Json     // Full resume JSON (basics, work, education, skills, etc.)
-  metadata  Json     @default("{}") // Theme, layout, page size
+  data      Json     // Full resume JSON (basics, work, education, skills, etc. - Native JSON)
+  metadata  Json?    // Theme, layout, page size
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,7 +78,7 @@ model FootprintCheck {
   userId         String    @unique
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  completedItems Json      @default("[]") // Array of completed checklist item IDs
+  completedItems String[]  @default([])      // Array of completed checklist item IDs
   score          Int       @default(0)    // Calculated 0-100
   lastCheckedAt  DateTime?
 
