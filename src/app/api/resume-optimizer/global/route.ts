@@ -1,7 +1,7 @@
-
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { optimizeResumeGlobal } from "@/lib/ai";
+import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
     try {
@@ -20,6 +20,23 @@ export async function POST(req: Request) {
             );
         }
 
+        // Check user credits
+        const user = await db.user.findUnique({
+            where: { id: userId },
+            select: { credits: true }
+        });
+
+        if (!user) {
+            return new NextResponse("User not found", { status: 404 });
+        }
+
+        if (user.credits <= 0) {
+            return NextResponse.json(
+                { error: "Insufficient credits" },
+                { status: 403 }
+            );
+        }
+
         const result = await optimizeResumeGlobal(data);
 
         if (!result.success) {
@@ -29,9 +46,17 @@ export async function POST(req: Request) {
             );
         }
 
+        // Deduct 1 credit
+        const updatedUser = await db.user.update({
+            where: { id: userId },
+            data: { credits: { decrement: 1 } },
+            select: { credits: true }
+        });
+
         return NextResponse.json({
             success: true,
             data: result.data,
+            credits: updatedUser.credits
         });
     } catch (error: any) {
         console.error("[GLOBAL_OPTIMIZER]", error);
