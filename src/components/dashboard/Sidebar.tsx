@@ -34,7 +34,7 @@ const sidebarLinks = [
     },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ userPlan = "Free" }: { userPlan?: string }) {
     const pathname = usePathname();
     const { sidebarOpen, toggleSidebar } = useUiStore();
     const collapsed = !sidebarOpen;
@@ -110,7 +110,7 @@ export default function Sidebar() {
                                 <span className="truncate text-sm font-bold uppercase text-black">
                                     {user?.fullName || "User"}
                                 </span>
-                                <span className="truncate text-xs font-mono text-gray-600">PRO MEMBER</span>
+                                <span className="truncate text-xs font-mono text-gray-600">{userPlan} PLAN</span>
                             </div>
                         </div>
                     ) : (

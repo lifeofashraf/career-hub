@@ -14,8 +14,10 @@ import { cn } from "@/lib/utils";
 
 export default function DashboardLayout({
     children,
+    userPlan,
 }: {
     children: React.ReactNode;
+    userPlan: string;
 }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
@@ -25,7 +27,7 @@ export default function DashboardLayout({
             {/* Desktop Sidebar - Sticky */}
             <div className="hidden md:flex flex-col flex-shrink-0 relative z-30">
                 <div className="sticky top-0 h-screen">
-                    <Sidebar />
+                    <Sidebar userPlan={userPlan} />
                 </div>
             </div>
 
@@ -47,7 +49,7 @@ export default function DashboardLayout({
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             className="fixed top-0 left-0 z-50 h-full bg-white lg:hidden border-r-2 border-black"
                         >
-                            <Sidebar />
+                            <Sidebar userPlan={userPlan} />
                         </motion.aside>
                     </>
                 )}

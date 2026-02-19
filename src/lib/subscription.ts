@@ -38,3 +38,38 @@ export const checkSubscription = async () => {
 
     return !!isValid;
 };
+
+export const getUserPlan = async () => {
+    const { userId } = await auth();
+
+    if (!userId) {
+        return "Free";
+    }
+
+    const user = await db.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            plan: true,
+            stripePriceId: true,
+            stripeCurrentPeriodEnd: true,
+        },
+    });
+
+    if (!user) {
+        return "Free";
+    }
+
+    // Check if subscription is valid
+    const isPro =
+        user.stripePriceId &&
+        user.stripeCurrentPeriodEnd?.getTime()! > Date.now();
+
+    if (isPro) {
+        // Map internal plan names to display names if needed
+        return "Pro";
+    }
+
+    return "Free";
+};
