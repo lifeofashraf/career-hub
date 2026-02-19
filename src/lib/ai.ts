@@ -1,12 +1,6 @@
-import { OpenRouter } from "@openrouter/sdk";
-
 // ============================================
-// OpenRouter AI Client
+// AI Configuration
 // ============================================
-
-const openrouter = new OpenRouter({
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
 
 const MODEL = process.env.OPENROUTER_MODEL || "stepfun/step-3.5-flash:free";
 
@@ -93,18 +87,26 @@ Return the COMPLETE resume JSON with the same structure as the input, but with i
 RETURN ONLY JSON.`;
 
   try {
-    const completion = await openrouter.chat.send({
-      // @ts-ignore
-      chatGenerationParams: {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
         model: MODEL,
         messages: [{ role: "user", content: prompt }],
         provider: {
-          sort: "throughput",
-        },
-      }
+          sort: "throughput"
+        }
+      })
     });
 
-    // @ts-ignore
+    if (!res.ok) {
+      throw new Error(`OpenRouter API error: ${await res.text()}`);
+    }
+
+    const completion = await res.json();
     const rawContent = completion.choices?.[0]?.message?.content || "{}";
     let response = "";
     if (typeof rawContent === "string") {
@@ -169,18 +171,26 @@ RETURN THE RESPONSE AS RAW JSON ONLY. DO NOT USE MARKDOWN BLOCK FORMATTING (no t
 
     console.log(`[AI_PARSE] Sending request to OpenRouter SDK (Model: ${MODEL})...`);
 
-    const completion = await openrouter.chat.send({
-      // @ts-ignore
-      chatGenerationParams: {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
         model: MODEL,
         messages: messages,
         provider: {
-          sort: "throughput",
-        },
-      }
+          sort: "throughput"
+        }
+      })
     });
 
-    // @ts-ignore
+    if (!res.ok) {
+      throw new Error(`OpenRouter API error: ${await res.text()}`);
+    }
+
+    const completion = await res.json();
     const rawContentData = completion.choices?.[0]?.message?.content || "{}";
     let rawContent = "";
     if (typeof rawContentData === "string") {
@@ -270,18 +280,26 @@ ${JSON.stringify(content, null, 2)}
 Return the optimized content as a JSON object with the EXACT SAME structure as the input. Do not change field names or add/remove fields. Return ONLY valid JSON.`;
 
   try {
-    const completion = await openrouter.chat.send({
-      // @ts-ignore
-      chatGenerationParams: {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
         model: MODEL,
         messages: [{ role: "user", content: prompt }],
         provider: {
-          sort: "throughput",
-        },
-      }
+          sort: "throughput"
+        }
+      })
     });
 
-    // @ts-ignore
+    if (!res.ok) {
+      throw new Error(`OpenRouter API error: ${await res.text()}`);
+    }
+
+    const completion = await res.json();
     const rawContent = completion.choices?.[0]?.message?.content || "{}";
     let response = "";
     if (typeof rawContent === "string") {
