@@ -328,3 +328,53 @@ Return the optimized content as a JSON object with the EXACT SAME structure as t
     return { success: false, error: e.message || "Failed to parse AI response" };
   }
 }
+
+// ============================================
+// Summarize Document
+// ============================================
+
+export async function summarizeDocument(content: string) {
+  const prompt = `You are an expert document summarizer. Your task is to provide a comprehensive yet concise summary of the following document content.
+
+INSTRUCTIONS:
+1. **Executive Summary**: A high-level overview of the document (2-3 sentences).
+2. **Key Points**: 5-7 impactful bullet points identifying core arguments, data, or findings.
+3. **Action Items/Next Steps**: If applicable, list any implied actions.
+4. **Tone**: Maintain the original document's tone but improve clarity.
+5. **Format**: Return the response formatted in Markdown.
+
+DOCUMENT CONTENT:
+${content.substring(0, 15000)} // Limiting to ~15k chars for token safety
+
+Return ONLY the markdown summary.`;
+
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [{ role: "user", content: prompt }],
+        provider: {
+          sort: "throughput"
+        }
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`OpenRouter API error: ${await res.text()}`);
+    }
+
+    const completion = await res.json();
+    const result = completion.choices?.[0]?.message?.content || "No summary generated.";
+
+    return { success: true, data: result };
+  } catch (e: any) {
+    console.error("[AI_SUMMARIZE] Failed:", e);
+    return { success: false, error: e.message || "Failed to generate summary" };
+  }
+}
+

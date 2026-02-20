@@ -4,6 +4,7 @@ import { dark } from "@clerk/themes";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import { Inter, Archivo, Space_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,9 +26,35 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Resumate — Career Tools That Actually Help",
+  metadataBase: new URL("https://resumate.com"),
+  title: "Resumate — Brutalist Resume Builder & Career Tools",
   description:
-    "Free, privacy-first career tools. Build stunning resumes, track job applications, and secure your digital footprint.",
+    "Free, privacy-first career tools. Build stunning ATS-friendly resumes, track job applications, and secure your digital footprint.",
+  keywords: ["resume builder", "ATS resume", "career tools", "free resume maker", "job application tracker", "pdf merge", "split pdf", "compress pdf"],
+  openGraph: {
+    title: "Resumate — Brutalist Resume Builder & Career Tools",
+    description: "Free, privacy-first career tools. Build stunning ATS-friendly resumes, track job applications, and secure your digital footprint.",
+    url: "https://resumate.com",
+    siteName: "Resumate",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resumate — Brutalist Resume Builder & Career Tools",
+    description: "Free, privacy-first career tools. Build stunning ATS-friendly resumes.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export const viewport = {
@@ -56,11 +83,18 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={`${inter.variable} ${archivo.variable} ${spaceMono.variable} bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200`}>
-          <SmoothScroll>
-            {children}
-          </SmoothScroll>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SmoothScroll>
+              {children}
+            </SmoothScroll>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

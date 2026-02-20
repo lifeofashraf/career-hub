@@ -23,9 +23,9 @@ const sidebarLinks = [
         icon: LayoutDashboard,
     },
     {
-        label: "Applications",
-        href: "/tracker",
-        icon: Briefcase,
+        label: "Office Tools",
+        href: "/office-tools",
+        icon: FolderOpen,
     },
     {
         label: "Settings",

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sparkles,
   ArrowDown,
@@ -14,10 +15,31 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Resumate",
+    "operatingSystem": "Web Application",
+    "applicationCategory": "BusinessApplication",
+    "description": "Free, privacy-first career tools. Build stunning ATS-friendly resumes and track job applications.",
+    "url": "https://resumate.com",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen w-full flex-col font-sans text-black overflow-x-hidden bg-white selection:bg-black selection:text-white">
       {/* Header */}
       <Header />
+
+      {/* JSON-LD Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -32,22 +54,22 @@ export default function Home() {
                 Build Your <br />
                 <span className="italic bg-black text-white px-2">Legacy.</span>
               </h1>
-              <p className="text-lg font-medium leading-relaxed max-w-lg mb-10 border-l-4 border-black pl-4">
-                Construct a professional resume with raw efficiency. 20+ ATS-compliant structural frameworks. No fluff. Just impact.
-              </p>
+              <h2 className="text-lg font-medium leading-relaxed max-w-lg mb-10 border-l-4 border-black pl-4">
+                Construct a professional resume with raw efficiency using our free online resume builder. 20+ ATS-compliant structural templates. No fluff. Just impact.
+              </h2>
               <div className="flex flex-col sm:flex-row gap-6">
-                <Link href="/dashboard" className="flex items-center justify-center h-14 px-8 border-2 border-black bg-black text-white text-lg font-black uppercase tracking-wider brutalist-shadow transition-all brutalist-shadow-hover brutalist-shadow-active">
+                <Link aria-label="Create your new professional ATS resume" title="Create Resume Dashboard" href="/dashboard" className="flex items-center justify-center h-14 px-8 border-2 border-black bg-black text-white text-lg font-black uppercase tracking-wider brutalist-shadow transition-all brutalist-shadow-hover brutalist-shadow-active">
                   Create Resume
                 </Link>
-                <a href="#frameworks" className="flex items-center justify-center h-14 px-8 border-2 border-black bg-white text-black text-lg font-black uppercase tracking-wider brutalist-shadow-sm hover:bg-gray-100 transition-colors">
+                <a aria-label="View our professional resume templates" title="View Template Samples" href="#frameworks" className="flex items-center justify-center h-14 px-8 border-2 border-black bg-white text-black text-lg font-black uppercase tracking-wider brutalist-shadow-sm hover:bg-gray-100 transition-colors">
                   View Samples
                 </a>
               </div>
               <div className="flex items-center gap-4 mt-12 pt-6 border-t-2 border-dashed border-gray-300">
                 <div className="flex -space-x-4">
-                  <div className="size-10 border-2 border-black bg-gray-200 bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5hMN2t_siuNf0TwJmVzmIkBcs5WyTJeKB28lHA7zr2tD4SPsUMrxQF15R99cM9_zqNbi1gw1zV_a1Bs-9dLeh6EgnVtCc4uTaSlRLfJ373w41-vlrJoUzkt1HIWsdnJY9O7_qMgfUJ33GKoaH6CUyDA8eCvdweRgiYKUvb43KlnY6NRwEG2h4iOFBcgh9uMVRdv2zpRZKamxY93mNMN20XKrnazQZcnGB2YJ2AKn7EGJlNNsMMzKKZ5vgUIbZeWpkL8RjEAPrmpk")' }}></div>
-                  <div className="size-10 border-2 border-black bg-gray-200 bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjsNtu4Cb7YmDtMIpyhNrMjS5dJ1MpqAhUBkMaKylmNG51YCHgDDTU18D8SLuxPlVwzgTGJrg-kdxMU5Mta3hW2PYMuEu5N_ZgOsI_zezcJOrBWW_e4agpXrHZDZIBOjJAdI9UlZ29h6hSKIZxt5o-O13IbtfUnO83LwpB4mewPVAPOEwYuDqFsZJEXn5rkAF6scfo5_F2AeGaQBnezA9Up_5OQS0q2NfUjvC86PbDk7OytFcfC-2WEKepobH_D5-QRhZLEwQKKRI")' }}></div>
-                  <div className="size-10 border-2 border-black bg-gray-200 bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsZxGLhuJntx5g8fD5q2naf-U-V3TY3MjOKANr3ovEX79PfHWWgMHGPR6LgGHYAsheNL449mrvBdY8sX7n2E21rsjgS3uJc30n5mNPhLJGVLo2r8PbqHjEe5HB_q03wlJj6rX3Eddu2eceB_FLv2U7DN10P9MYHjSzrLI7EooVDzkw2Y4evbuC8LtKSa-rzvBfFn3rPtYyrqodAeuaXOAmYuI4FtbQlJnZs2QvVKFLR3mENSXXUVR_B6mesn_0PkWDfgbhGHqwbNk")' }}></div>
+                  <div className="relative size-10 border-2 border-black bg-gray-200 overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5hMN2t_siuNf0TwJmVzmIkBcs5WyTJeKB28lHA7zr2tD4SPsUMrxQF15R99cM9_zqNbi1gw1zV_a1Bs-9dLeh6EgnVtCc4uTaSlRLfJ373w41-vlrJoUzkt1HIWsdnJY9O7_qMgfUJ33GKoaH6CUyDA8eCvdweRgiYKUvb43KlnY6NRwEG2h4iOFBcgh9uMVRdv2zpRZKamxY93mNMN20XKrnazQZcnGB2YJ2AKn7EGJlNNsMMzKKZ5vgUIbZeWpkL8RjEAPrmpk" alt="User Avatar" fill className="object-cover" sizes="40px" /></div>
+                  <div className="relative size-10 border-2 border-black bg-gray-200 overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjsNtu4Cb7YmDtMIpyhNrMjS5dJ1MpqAhUBkMaKylmNG51YCHgDDTU18D8SLuxPlVwzgTGJrg-kdxMU5Mta3hW2PYMuEu5N_ZgOsI_zezcJOrBWW_e4agpXrHZDZIBOjJAdI9UlZ29h6hSKIZxt5o-O13IbtfUnO83LwpB4mewPVAPOEwYuDqFsZJEXn5rkAF6scfo5_F2AeGaQBnezA9Up_5OQS0q2NfUjvC86PbDk7OytFcfC-2WEKepobH_D5-QRhZLEwQKKRI" alt="User Avatar" fill className="object-cover" sizes="40px" /></div>
+                  <div className="relative size-10 border-2 border-black bg-gray-200 overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsZxGLhuJntx5g8fD5q2naf-U-V3TY3MjOKANr3ovEX79PfHWWgMHGPR6LgGHYAsheNL449mrvBdY8sX7n2E21rsjgS3uJc30n5mNPhLJGVLo2r8PbqHjEe5HB_q03wlJj6rX3Eddu2eceB_FLv2U7DN10P9MYHjSzrLI7EooVDzkw2Y4evbuC8LtKSa-rzvBfFn3rPtYyrqodAeuaXOAmYuI4FtbQlJnZs2QvVKFLR3mENSXXUVR_B6mesn_0PkWDfgbhGHqwbNk" alt="User Avatar" fill className="object-cover" sizes="40px" /></div>
                 </div>
                 <p className="font-bold text-sm uppercase tracking-wide">Joined by 10k+ Builders</p>
               </div>
@@ -56,8 +78,8 @@ export default function Home() {
               <div className="absolute top-10 right-10 w-24 h-24 border-4 border-black bg-white z-0"></div>
               <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full border-4 border-black bg-black z-0"></div>
               <div className="relative z-10 w-full max-w-md border-4 border-black bg-white p-2 brutalist-shadow rotate-1 hover:rotate-0 transition-transform duration-500">
-                <div className="border-2 border-black overflow-hidden bg-white">
-                  <img alt="Resume builder dashboard interface" className="w-full h-auto object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZnOL6e2DbPYHdZsG2EnnBR15EfYkQDtc2T_aDhJp-ifmHbZGwC0IV2F14rqgEZyH4fJg784wfDQxqxjYp6BVN5eZ8Pcmj6M2QQvD9NT43hbZRQefJzxiSKOdlUkj9DQuGc0LigpCL52r2NsIkYj2f2El4mIYB7zRpMKBmclBsdo7JBhYC4H8l0uU6rgyfEN8Sce_sd1JeLy_P1yfPISCikZHmmuiBURFfJiemAvzJij-RbHXztEJM6vl0URkug1l9I-8fMCgLaR4" />
+                <div className="border-2 border-black overflow-hidden bg-white relative w-full aspect-[4/5]">
+                  <Image fill priority alt="Resume builder dashboard interface" className="object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZnOL6e2DbPYHdZsG2EnnBR15EfYkQDtc2T_aDhJp-ifmHbZGwC0IV2F14rqgEZyH4fJg784wfDQxqxjYp6BVN5eZ8Pcmj6M2QQvD9NT43hbZRQefJzxiSKOdlUkj9DQuGc0LigpCL52r2NsIkYj2f2El4mIYB7zRpMKBmclBsdo7JBhYC4H8l0uU6rgyfEN8Sce_sd1JeLy_P1yfPISCikZHmmuiBURFfJiemAvzJij-RbHXztEJM6vl0URkug1l9I-8fMCgLaR4" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
             </div>
@@ -82,7 +104,7 @@ export default function Home() {
             <div className="group relative">
               <div className="relative aspect-[3/4] border-4 border-black bg-white p-2 transition-all duration-300 group-hover:-translate-y-2 group-hover:translate-x-2 brutalist-shadow group-hover:shadow-none">
                 <div className="w-full h-full border-2 border-black overflow-hidden relative">
-                  <div className="absolute inset-0 bg-cover bg-top grayscale group-hover:grayscale-0 transition-all duration-500" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDvx157rMhUTkAOLZWKfrup07AF0jojd4Kvts7FlZhlDWD1Jt-oXIgwHQh-zTbrbS3ABfHx70KWpcTWZlHdq8uXqjpgvHShHPHQuk-1zkhECqvsOHQsUOGnbs1Rd1JF0_lSSo3FovLREzllTTJO0sjTyAO8eklbJVxqzqhlntAFfm4yTjQ3wRa7dC4r6zg3md5jqGFRNP1ArAFpH0PUP9sH1dTZv31ImEyx48rsMaI74h0rUaydo33i2xmdNb_IcktmdDriDr35wA")' }}></div>
+                  <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDvx157rMhUTkAOLZWKfrup07AF0jojd4Kvts7FlZhlDWD1Jt-oXIgwHQh-zTbrbS3ABfHx70KWpcTWZlHdq8uXqjpgvHShHPHQuk-1zkhECqvsOHQsUOGnbs1Rd1JF0_lSSo3FovLREzllTTJO0sjTyAO8eklbJVxqzqhlntAFfm4yTjQ3wRa7dC4r6zg3md5jqGFRNP1ArAFpH0PUP9sH1dTZv31ImEyx48rsMaI74h0rUaydo33i2xmdNb_IcktmdDriDr35wA" alt="Executive Template Preview" fill className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <button className="bg-black border-2 border-white text-white font-bold uppercase tracking-wider py-3 px-6 hover:bg-white hover:text-black hover:border-black transition-colors">Select</button>
                   </div>
@@ -98,7 +120,7 @@ export default function Home() {
             <div className="group relative">
               <div className="relative aspect-[3/4] border-4 border-black bg-white p-2 transition-all duration-300 group-hover:-translate-y-2 group-hover:translate-x-2 brutalist-shadow group-hover:shadow-none">
                 <div className="w-full h-full border-2 border-black overflow-hidden relative">
-                  <div className="absolute inset-0 bg-cover bg-top grayscale group-hover:grayscale-0 transition-all duration-500" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmR5WiGMCeZBxGL-8pCnrpi6_z2qCjiH9kTS9tXvE3I7K-AJpV5s18_HaknUkDWE1z9OP4OFh3zCv5OYRffUkArxpUQzPPvU75B-OCgKCiSpg6ODJzqpXxtSF02sTz0lUWETUefpYiEwsBBDnXAoMVnARxelUVQyoCBaAeYahclxe0RLClWaYRlPwbhkRK-7EYGa_qg2EZHdh33HanhvpfLeX7zattT8JNlw6dCLsP7ZHYywZVEN3v7q0l95U6b6UaeJ36OnC6ruU")' }}></div>
+                  <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmR5WiGMCeZBxGL-8pCnrpi6_z2qCjiH9kTS9tXvE3I7K-AJpV5s18_HaknUkDWE1z9OP4OFh3zCv5OYRffUkArxpUQzPPvU75B-OCgKCiSpg6ODJzqpXxtSF02sTz0lUWETUefpYiEwsBBDnXAoMVnARxelUVQyoCBaAeYahclxe0RLClWaYRlPwbhkRK-7EYGa_qg2EZHdh33HanhvpfLeX7zattT8JNlw6dCLsP7ZHYywZVEN3v7q0l95U6b6UaeJ36OnC6ruU" alt="Creator Template Preview" fill className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <button className="bg-black border-2 border-white text-white font-bold uppercase tracking-wider py-3 px-6 hover:bg-white hover:text-black hover:border-black transition-colors">Select</button>
                   </div>
@@ -113,7 +135,7 @@ export default function Home() {
             <div className="group relative">
               <div className="relative aspect-[3/4] border-4 border-black bg-white p-2 transition-all duration-300 group-hover:-translate-y-2 group-hover:translate-x-2 brutalist-shadow group-hover:shadow-none">
                 <div className="w-full h-full border-2 border-black overflow-hidden relative">
-                  <div className="absolute inset-0 bg-cover bg-top grayscale group-hover:grayscale-0 transition-all duration-500" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrtmGXwjGis7PfGQeNtMbMOh4Na6Xh6V5spgIlrZ9AeaHoCjZDo9VjZu2s1qrLnkCv8YCMlXrdT5kg8VwJX8pt-xZbVHpw55TPIWj0M1ncpTUXrk1J4HMhq1NdyotvOYevQnB0ava0oeVBFCwh2ZZDoy-lK1lZ2j0B-BwGSl_3RgXCdknJrVKARUVQR1ElCkVk5k6ZsUs0usIUZUvfptWoG90V1USWcnGuZ_38Wh4l6AKxz7zpIPE3mLqXajpxE8UWmUH21biuQU8")' }}></div>
+                  <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrtmGXwjGis7PfGQeNtMbMOh4Na6Xh6V5spgIlrZ9AeaHoCjZDo9VjZu2s1qrLnkCv8YCMlXrdT5kg8VwJX8pt-xZbVHpw55TPIWj0M1ncpTUXrk1J4HMhq1NdyotvOYevQnB0ava0oeVBFCwh2ZZDoy-lK1lZ2j0B-BwGSl_3RgXCdknJrVKARUVQR1ElCkVk5k6ZsUs0usIUZUvfptWoG90V1USWcnGuZ_38Wh4l6AKxz7zpIPE3mLqXajpxE8UWmUH21biuQU8" alt="Minimalist Template Preview" fill className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <button className="bg-black border-2 border-white text-white font-bold uppercase tracking-wider py-3 px-6 hover:bg-white hover:text-black hover:border-black transition-colors">Select</button>
                   </div>
@@ -202,7 +224,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="p-6 border-4 border-black bg-white brutalist-shadow">
                 <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-black border-dashed">
-                  <div className="size-12 border-2 border-black bg-cover bg-center grayscale" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDGAbtOHEVObucphFtszPM53Ma8F1JRvsvxG7sfUHmTKpfqg_0rlt1JJWEYZYJHBaZP9QwAUoCKe_ty6GSu6bKIw_JLdkH0GvDBFTP5Fo19XIxWygyAjWMsgukAzKqmILMZIU7pIsrRY9d1h0ZdBa1TZK55M7DaOKQObVwrTu01pWsHk59sUusADNWUymaVPnTMh2cIL1L19cg4Ac_812VUeVDJrUjiitn1RVKnr7-JpWUKSpQnRScNNx-v-jZepcNYYZGuVyRKcvU")' }}></div>
+                  <div className="relative size-12 border-2 border-black overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGAbtOHEVObucphFtszPM53Ma8F1JRvsvxG7sfUHmTKpfqg_0rlt1JJWEYZYJHBaZP9QwAUoCKe_ty6GSu6bKIw_JLdkH0GvDBFTP5Fo19XIxWygyAjWMsgukAzKqmILMZIU7pIsrRY9d1h0ZdBa1TZK55M7DaOKQObVwrTu01pWsHk59sUusADNWUymaVPnTMh2cIL1L19cg4Ac_812VUeVDJrUjiitn1RVKnr7-JpWUKSpQnRScNNx-v-jZepcNYYZGuVyRKcvU" alt="Sarah J. Avatar" fill className="object-cover grayscale" sizes="48px" /></div>
                   <div>
                     <h4 className="font-black uppercase text-lg">Sarah J.</h4>
                     <p className="text-xs font-mono font-bold bg-black text-white inline-block px-1">Product Mgr @ Google</p>
@@ -212,7 +234,7 @@ export default function Home() {
               </div>
               <div className="p-6 border-4 border-black bg-white brutalist-shadow">
                 <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-black border-dashed">
-                  <div className="size-12 border-2 border-black bg-cover bg-center grayscale" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA86yLYucRJyntztnGKhMX0WYxpgbIuwaOQPsYK_92YfGUIbI7MWc0V3gRnoZcnUdqojFnu1hPvShlhjh8qsGcVUpDIOslnxrcefVBM4AHOiMylFFzXBIJUz-ok6zCKgbbNfAB6Ybn7EGEuTVh2_y6C8l-esv7Z6lOjBHuzr0cgfQ3JStA2vOyAt5-LrOsu5ARiDrBptIV-W4leihfnKNwuzsFuNvjhse95IVWw3pV7lcKn3ctotf2hDlcEI2PV5j1ykZTG1NYMqBI")' }}></div>
+                  <div className="relative size-12 border-2 border-black overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuA86yLYucRJyntztnGKhMX0WYxpgbIuwaOQPsYK_92YfGUIbI7MWc0V3gRnoZcnUdqojFnu1hPvShlhjh8qsGcVUpDIOslnxrcefVBM4AHOiMylFFzXBIJUz-ok6zCKgbbNfAB6Ybn7EGEuTVh2_y6C8l-esv7Z6lOjBHuzr0cgfQ3JStA2vOyAt5-LrOsu5ARiDrBptIV-W4leihfnKNwuzsFuNvjhse95IVWw3pV7lcKn3ctotf2hDlcEI2PV5j1ykZTG1NYMqBI" alt="Michael C. Avatar" fill className="object-cover grayscale" sizes="48px" /></div>
                   <div>
                     <h4 className="font-black uppercase text-lg">Michael C.</h4>
                     <p className="text-xs font-mono font-bold bg-black text-white inline-block px-1">Software Eng.</p>
@@ -222,7 +244,7 @@ export default function Home() {
               </div>
               <div className="p-6 border-4 border-black bg-white brutalist-shadow hidden lg:block">
                 <div className="flex items-center gap-4 mb-6 pb-4 border-b-2 border-black border-dashed">
-                  <div className="size-12 border-2 border-black bg-cover bg-center grayscale" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBkvuc3Mj9NjBrlv30m4BNrycl6hCRdrnTRjcytwbl8vkXZhDUf8xuoodl4h5Eahg23Dv9tnAyyOJLksQwFifd-cCM9UXrUXHFl-4-vmBwBrDvpNufpD3TgVqmtcd_BxAwsxTJkD1dCQcy51xXAukOMBwliO0DUDhJh39J9mpvUY6X-Cpi8gyBBdba3bW8muANzWlr-P7QjBGEjU4gm-0QF25mAK9AOD0z6igYlRl1RK9sbV4Z51MlhjyRiuT9RB7pimjK0GwKmNtw")' }}></div>
+                  <div className="relative size-12 border-2 border-black overflow-hidden"><Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkvuc3Mj9NjBrlv30m4BNrycl6hCRdrnTRjcytwbl8vkXZhDUf8xuoodl4h5Eahg23Dv9tnAyyOJLksQwFifd-cCM9UXrUXHFl-4-vmBwBrDvpNufpD3TgVqmtcd_BxAwsxTJkD1dCQcy51xXAukOMBwliO0DUDhJh39J9mpvUY6X-Cpi8gyBBdba3bW8muANzWlr-P7QjBGEjU4gm-0QF25mAK9AOD0z6igYlRl1RK9sbV4Z51MlhjyRiuT9RB7pimjK0GwKmNtw" alt="Jessica R. Avatar" fill className="object-cover grayscale" sizes="48px" /></div>
                   <div>
                     <h4 className="font-black uppercase text-lg">Jessica R.</h4>
                     <p className="text-xs font-mono font-bold bg-black text-white inline-block px-1">Marketing Dir.</p>
@@ -242,7 +264,7 @@ export default function Home() {
               <span className="bg-black text-white px-4">Dominate?</span>
             </h2>
             <p className="text-xl font-bold max-w-xl">Join the ranks of professionals who have upgraded their career infrastructure.</p>
-            <Link href="/dashboard" className="flex w-full md:w-auto items-center justify-center h-16 px-12 bg-black text-white text-xl font-black uppercase tracking-wider border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors brutalist-shadow-sm">
+            <Link aria-label="Start building your resume inside the dashboard" title="Start Dashboard Builder" href="/dashboard" className="flex w-full md:w-auto items-center justify-center h-16 px-12 bg-black text-white text-xl font-black uppercase tracking-wider border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors brutalist-shadow-sm">
               Start Building
             </Link>
             <p className="text-xs font-mono uppercase tracking-widest text-gray-500 mt-4 border-t border-gray-300 pt-4 w-full">No credit card required for basic access</p>
